@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Mail, Phone, Clock, Send, MessageCircle, CheckCircle } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { PointerGlow } from "./ui/pointer-glow";
 
 export default function ContactSection() {
   const { language, t } = useLanguage();
@@ -89,11 +90,12 @@ export default function ContactSection() {
             <div className="space-y-4 font-sans text-[14px]">
               
               {/* Email Connection Row */}
-              <div className="flex items-center gap-4 bg-white border border-slate-200/50 p-4 rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:border-slate-300 transition-colors">
-                <div className="w-10 h-10 rounded-xl bg-navy/5 flex items-center justify-center text-navy font-bold">
+              <div className="interactive-surface group relative overflow-hidden flex items-center gap-4 bg-white border border-slate-200/50 p-4 rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:-translate-y-1 hover:border-blue-200/80 hover:shadow-[0_14px_30px_-18px_rgba(15,43,75,0.2)] transition-all duration-300">
+                <PointerGlow />
+                <div className="relative z-10 w-10 h-10 rounded-xl bg-navy/5 flex items-center justify-center text-navy font-bold group-hover:bg-navy group-hover:text-white group-hover:rotate-3 transition-all duration-300">
                   <Mail className="w-5 h-5" />
                 </div>
-                <div>
+                <div className="relative z-10">
                   <p className="text-slate-400 text-[11px] font-semibold uppercase tracking-wider">
                     {language === "fr" ? "Email Sécurisé" : "Secure Email"}
                   </p>
@@ -104,11 +106,12 @@ export default function ContactSection() {
               </div>
 
               {/* Phone Connection Row */}
-              <div className="flex items-center gap-4 bg-white border border-slate-200/50 p-4 rounded-xl shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:border-slate-300 transition-colors">
-                <div className="w-10 h-10 rounded-xl bg-navy/5 flex items-center justify-center text-navy font-bold">
+              <div className="interactive-surface group relative overflow-hidden flex items-center gap-4 bg-white border border-slate-200/50 p-4 rounded-xl shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:-translate-y-1 hover:border-blue-200/80 hover:shadow-[0_14px_30px_-18px_rgba(15,43,75,0.2)] transition-all duration-300">
+                <PointerGlow />
+                <div className="relative z-10 w-10 h-10 rounded-xl bg-navy/5 flex items-center justify-center text-navy font-bold group-hover:bg-navy group-hover:text-white group-hover:rotate-3 transition-all duration-300">
                   <Phone className="w-5 h-5" />
                 </div>
-                <div>
+                <div className="relative z-10">
                   <p className="text-slate-400 text-[11px] font-semibold uppercase tracking-wider">
                     {language === "fr" ? "Ligne Directe SecOps" : "SecOps Direct Line"}
                   </p>
@@ -119,11 +122,12 @@ export default function ContactSection() {
               </div>
 
               {/* Service response SLA Uptime indicator */}
-              <div className="flex items-center gap-4 bg-white border border-slate-200/50 p-4 rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:border-slate-300 transition-colors">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 font-bold">
+              <div className="interactive-surface group relative overflow-hidden flex items-center gap-4 bg-white border border-slate-200/50 p-4 rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.01)] hover:-translate-y-1 hover:border-emerald-200 hover:shadow-[0_14px_30px_-18px_rgba(5,150,105,0.2)] transition-all duration-300">
+                <PointerGlow color="16, 185, 129" />
+                <div className="relative z-10 w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 font-bold group-hover:bg-emerald-600 group-hover:text-white group-hover:rotate-3 transition-all duration-300">
                   <Clock className="w-5 h-5" />
                 </div>
-                <div>
+                <div className="relative z-10">
                   <p className="text-slate-400 text-[11px] font-semibold uppercase tracking-wider">
                     {language === "fr" ? "Délai Garanti" : "Guaranteed Response"}
                   </p>

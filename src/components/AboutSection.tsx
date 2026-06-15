@@ -2,6 +2,7 @@ import React from "react";
 import { Shield } from "lucide-react";
 import { motion } from "motion/react";
 import { useLanguage } from "../context/LanguageContext";
+import { PointerGlow } from "./ui/pointer-glow";
 
 export default function AboutSection() {
   const { language, t } = useLanguage();
@@ -49,13 +50,17 @@ export default function AboutSection() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="lg:col-span-5 relative"
         >
-          <div className="relative bg-white border border-slate-200/50 rounded-[32px] p-8 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.02)] overflow-hidden">
+          <motion.div
+            whileHover={{ y: -6, rotate: 0.35 }}
+            className="interactive-surface group relative bg-white border border-slate-200/50 rounded-[32px] p-8 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.02)] hover:border-blue-200/80 hover:shadow-[0_30px_65px_-20px_rgba(15,43,75,0.18)] transition-[border-color,box-shadow] duration-300 overflow-hidden"
+          >
+            <PointerGlow color="99, 102, 241" />
             {/* Ambient visual badge decoration */}
             <div className="absolute top-0 right-0 -trany-x-4 w-32 h-32 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 rounded-full blur-2xl pointer-events-none" />
             
-            <div className="space-y-6">
-              <div className="w-12 h-12 rounded-2xl bg-navy/5 flex items-center justify-center text-navy border border-navy/10 shadow-sm">
-                <Shield className="w-6 h-6" />
+            <div className="space-y-6 relative z-10">
+              <div className="w-12 h-12 rounded-2xl bg-navy/5 flex items-center justify-center text-navy border border-navy/10 shadow-sm group-hover:-translate-y-1 group-hover:rotate-3 group-hover:bg-navy group-hover:text-white transition-all duration-300">
+                <Shield className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" />
               </div>
 
               <div className="space-y-2">
@@ -78,7 +83,7 @@ export default function AboutSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

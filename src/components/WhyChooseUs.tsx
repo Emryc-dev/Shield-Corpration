@@ -10,6 +10,7 @@ import {
   Layers 
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { PointerGlow } from "./ui/pointer-glow";
 
 interface Benefit {
   id: string;
@@ -126,12 +127,14 @@ export default function WhyChooseUs() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.6, delay: bIdx * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                  className="bg-white border border-slate-200/50 rounded-[32px] p-6 space-y-4 hover:border-slate-300 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.01)]"
+                  whileHover={{ y: -6 }}
+                  className="interactive-surface group relative overflow-hidden bg-white border border-slate-200/50 rounded-[32px] p-6 space-y-4 hover:border-blue-200/80 hover:shadow-[0_20px_45px_-18px_rgba(15,43,75,0.18)] transition-[border-color,box-shadow] duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.01)]"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100">
-                    <Icon className="w-5 h-5" />
+                  <PointerGlow color="59, 130, 246" />
+                  <div className="relative z-10 w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 group-hover:-translate-y-1 group-hover:rotate-3 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                    <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                   </div>
-                  <div className="space-y-1.5">
+                  <div className="space-y-1.5 relative z-10">
                     <h3 className="font-display text-[16px] font-bold text-navy">{t(benefit.titleKey)}</h3>
                     <p className="font-sans text-[13px] text-slate-text leading-relaxed">{t(benefit.textKey)}</p>
                   </div>
@@ -151,12 +154,14 @@ export default function WhyChooseUs() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-150px" }}
                 transition={{ duration: 0.6, delay: sIdx * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-white border border-slate-200/50 rounded-[32px] p-6 lg:p-8 space-y-2 text-center shadow-[0_10px_30px_rgba(0,0,0,0.015)] relative overflow-hidden group"
+                whileHover={{ y: -5, scale: 1.015 }}
+                className="interactive-surface bg-white border border-slate-200/50 rounded-[32px] p-6 lg:p-8 space-y-2 text-center shadow-[0_10px_30px_rgba(0,0,0,0.015)] hover:border-blue-200/80 hover:shadow-[0_20px_45px_-20px_rgba(15,43,75,0.2)] transition-[border-color,box-shadow] duration-300 relative overflow-hidden group"
               >
+                <PointerGlow color="14, 116, 144" />
                 {/* Visual accent circles */}
                 <div className="absolute -bottom-8 -right-8 w-16 h-16 bg-navy/5 rounded-full scale-0 group-hover:scale-150 transition-transform duration-500 blur-xl pointer-events-none" />
 
-                <div className="font-display text-[28px] md:text-[38px] lg:text-[44px] font-bold text-navy tracking-tight flex items-center justify-center">
+                <div className="relative z-10 font-display text-[28px] md:text-[38px] lg:text-[44px] font-bold text-navy tracking-tight flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
                   {stat.value}
                 </div>
                 

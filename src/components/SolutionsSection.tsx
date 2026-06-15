@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "motion/react";
 import { ShieldAlert, Fingerprint, Activity, Code2, CheckCircle, ArrowRight } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { PointerGlow } from "./ui/pointer-glow";
 
 interface SolutionItem {
   id: string;
@@ -115,15 +116,19 @@ export default function SolutionsSection({ onNavigateToSolution }: SolutionsSect
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-white border border-slate-200/50 rounded-[40px] p-8 md:p-10 shadow-[0_15px_45px_rgba(0,0,0,0.01)] hover:shadow-[0_30px_70px_rgba(0,0,0,0.02)] transition-all duration-300 relative overflow-hidden group cursor-pointer flex flex-col justify-between"
+                whileHover={{ y: -8, scale: 1.005 }}
+                whileTap={{ scale: 0.995 }}
+                className="interactive-surface bg-white border border-slate-200/50 rounded-[40px] p-8 md:p-10 shadow-[0_15px_45px_rgba(0,0,0,0.01)] hover:border-blue-200/80 hover:shadow-[0_30px_70px_-18px_rgba(15,43,75,0.2)] transition-[border-color,box-shadow] duration-300 relative overflow-hidden group cursor-pointer flex flex-col justify-between"
               >
+                <PointerGlow color="14, 165, 233" />
+
                 {/* Visual Accent */}
                 <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-blue-500/5 to-violet-500/5 rounded-bl-[40px] transition-all group-hover:scale-110" />
 
-                <div className="space-y-6">
+                <div className="space-y-6 relative z-10">
                   {/* Icon */}
-                  <div className="w-12 h-12 rounded-2xl bg-navy/5 flex items-center justify-center text-navy border border-navy/10 group-hover:bg-navy group-hover:text-white group-hover:border-navy transition-all duration-300">
-                    <Icon className="w-6 h-6" />
+                  <div className="w-12 h-12 rounded-2xl bg-navy/5 flex items-center justify-center text-navy border border-navy/10 group-hover:bg-navy group-hover:text-white group-hover:border-navy group-hover:-translate-y-1 group-hover:rotate-3 transition-all duration-300">
+                    <Icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" />
                   </div>
 
                   <div className="space-y-2">
@@ -149,7 +154,7 @@ export default function SolutionsSection({ onNavigateToSolution }: SolutionsSect
                 </div>
 
                 {/* Secure Navigation Footer triggering page load */}
-                <div className="pt-6 mt-6 border-t border-slate-100/50 flex items-center justify-between">
+                <div className="pt-6 mt-6 border-t border-slate-100/50 flex items-center justify-between relative z-10">
                   <span className="text-[12px] font-mono font-bold text-slate-400 uppercase tracking-widest">
                     {language === "fr" ? "Niveau Militaire // Class-D" : "MIL-SPEC SECURE"}
                   </span>
@@ -161,7 +166,7 @@ export default function SolutionsSection({ onNavigateToSolution }: SolutionsSect
                     className="inline-flex items-center gap-1.5 font-sans font-bold text-[13px] text-[#0b7c9e] hover:text-navy transition-colors cursor-pointer"
                   >
                     <span>{language === "fr" ? "En savoir plus" : "Learn More"}</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </button>
                 </div>
 

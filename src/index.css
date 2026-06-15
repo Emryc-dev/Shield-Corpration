@@ -69,8 +69,45 @@ body {
   animation: typewriter-cursor-blink 0.8s steps(1, end) infinite;
 }
 
+.interactive-surface {
+  --glow-x: 50%;
+  --glow-y: 50%;
+  isolation: isolate;
+}
+
+.pointer-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    360px circle at var(--glow-x) var(--glow-y),
+    rgba(var(--glow-color), 0.13),
+    transparent 68%
+  );
+  transition: opacity 240ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .interactive-surface:hover > .pointer-glow,
+  .interactive-surface:focus-visible > .pointer-glow,
+  .interactive-surface:focus-within > .pointer-glow {
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .typewriter-cursor {
     animation: none;
+  }
+
+  .pointer-glow {
+    display: none;
+  }
+
+  .interactive-surface,
+  .interactive-surface * {
+    transition-duration: 0.01ms !important;
   }
 }
