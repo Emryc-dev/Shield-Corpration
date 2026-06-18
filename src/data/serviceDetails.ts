@@ -15,7 +15,7 @@ export interface ServiceItem {
   titleKey: string;
   descKey: string;
   icon: React.ComponentType<{ className?: string }>;
-  color: string;
+  image: string;
 }
 
 export const servicesList: ServiceItem[] = [
@@ -24,56 +24,56 @@ export const servicesList: ServiceItem[] = [
     titleKey: "services.netAdmin.title",
     descKey: "services.netAdmin.desc",
     icon: Network,
-    color: "from-blue-500/10 to-indigo-500/10"
+    image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=82"
   },
   {
     id: "sec-admin",
     titleKey: "services.secAdmin.title",
     descKey: "services.secAdmin.desc",
     icon: ShieldCheck,
-    color: "from-emerald-500/10 to-teal-500/10"
+    image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=1200&q=82"
   },
   {
     id: "pentest",
     titleKey: "services.pentest.title",
     descKey: "services.pentest.desc",
     icon: Terminal,
-    color: "from-orange-500/10 to-red-500/10"
+    image: "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=1200&q=82"
   },
   {
     id: "web-test",
     titleKey: "services.webTest.title",
     descKey: "services.webTest.desc",
     icon: Bug,
-    color: "from-pink-500/10 to-rose-500/10"
+    image: "https://images.unsplash.com/photo-1548092372-0d1bd40894a3?auto=format&fit=crop&w=1200&q=82"
   },
   {
     id: "cloud-comp",
     titleKey: "services.cloud.title",
     descKey: "services.cloud.desc",
     icon: Cloud,
-    color: "from-sky-500/10 to-violet-500/10"
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=82"
   },
   {
     id: "sec-host",
     titleKey: "services.host.title",
     descKey: "services.host.desc",
     icon: Server,
-    color: "from-amber-500/10 to-yellow-500/10"
+    image: "https://images.unsplash.com/photo-1695668548342-c0c1ad479aee?auto=format&fit=crop&w=1200&q=82"
   },
   {
     id: "cyber-cons",
     titleKey: "services.consulting.title",
     descKey: "services.consulting.desc",
     icon: MessageSquareCode,
-    color: "from-violet-500/10 to-purple-500/10"
+    image: "https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?auto=format&fit=crop&w=1200&q=82"
   },
   {
     id: "sec-dev",
     titleKey: "services.webDev.title",
     descKey: "services.webDev.desc",
     icon: Code2,
-    color: "from-fuchsia-500/10 to-pink-500/10"
+    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=82"
   }
 ];
 

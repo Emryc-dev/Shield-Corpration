@@ -144,7 +144,7 @@ export default function ContactSection() {
               <button
                 type="button"
                 onClick={handleWhatsAppClick}
-                className="inline-flex items-center gap-2 bg-emerald-600 text-white font-semibold rounded-full px-6 py-3.5 text-[13px] hover:bg-emerald-700 active:scale-95 shadow-md shadow-emerald-600/10 hover:shadow-xl transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 bg-[#0b7c9e] text-white font-semibold rounded-full px-6 py-3.5 text-[13px] hover:bg-navy active:scale-95 shadow-md shadow-[#0b7c9e]/15 hover:shadow-xl hover:shadow-[#0b7c9e]/20 transition-all cursor-pointer"
               >
                 <MessageCircle className="w-4.5 h-4.5" />
                 {language === "fr" ? "Discuter sur WhatsApp" : "Chat on WhatsApp"}

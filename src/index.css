@@ -89,11 +89,84 @@ body {
   transition: opacity 240ms ease;
 }
 
+.service-image-card {
+  isolation: isolate;
+}
+
+.service-card-image {
+  transform: scale(1.02);
+  filter: blur(1.5px) saturate(0.78);
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-card-shade {
+  background:
+    linear-gradient(180deg, rgba(245, 249, 252, 0.28) 0%, rgba(245, 249, 252, 0.1) 30%, transparent 55%),
+    linear-gradient(rgba(241, 247, 250, 0.18), rgba(241, 247, 250, 0.08)),
+    linear-gradient(180deg, rgba(6, 17, 32, 0.2) 0%, rgba(6, 17, 32, 0.12) 32%, rgba(6, 17, 32, 0.94) 100%),
+    linear-gradient(135deg, rgba(11, 124, 158, 0.2), transparent 55%);
+  transition: background 500ms ease;
+}
+
+.service-card-shade::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 42%;
+  background: rgba(244, 248, 251, 0.08);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+}
+
+.service-card-content {
+  transform: translateY(0);
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-card-reveal {
+  max-height: 220px;
+  opacity: 1;
+  transform: translateY(0);
+  overflow: hidden;
+  transition:
+    max-height 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 320ms ease,
+    transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 @media (hover: hover) and (pointer: fine) {
   .interactive-surface:hover > .pointer-glow,
   .interactive-surface:focus-visible > .pointer-glow,
   .interactive-surface:focus-within > .pointer-glow {
     opacity: 1;
+  }
+
+  .service-card-reveal {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  .service-image-card:hover .service-card-reveal,
+  .service-image-card:focus-visible .service-card-reveal {
+    max-height: 220px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .service-image-card:hover .service-card-image,
+  .service-image-card:focus-visible .service-card-image {
+    transform: scale(1.09);
+  }
+
+  .service-image-card:hover .service-card-shade,
+  .service-image-card:focus-visible .service-card-shade {
+    background:
+      linear-gradient(180deg, rgba(245, 249, 252, 0.22) 0%, rgba(245, 249, 252, 0.07) 30%, transparent 55%),
+      linear-gradient(rgba(241, 247, 250, 0.12), rgba(241, 247, 250, 0.04)),
+      linear-gradient(180deg, rgba(6, 17, 32, 0.18) 0%, rgba(6, 17, 32, 0.28) 30%, rgba(6, 17, 32, 0.98) 100%),
+      linear-gradient(135deg, rgba(11, 124, 158, 0.28), transparent 58%);
   }
 }
 
@@ -108,6 +181,11 @@ body {
 
   .interactive-surface,
   .interactive-surface * {
+    transition-duration: 0.01ms !important;
+  }
+
+  .service-image-card *,
+  .service-image-card {
     transition-duration: 0.01ms !important;
   }
 }
