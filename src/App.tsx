@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronRight, ShieldCheck, Menu, X, Globe } from "lucide-react";
+import { ChevronRight, ShieldCheck, Menu, X, Globe, ShoppingBag } from "lucide-react";
 import Logo from "./components/Logo";
 import MarqueeScroller from "./components/MarqueeScroller";
 import AboutSection from "./components/AboutSection";
@@ -21,6 +21,13 @@ import CybersecurityConsultingPage from "./components/CybersecurityConsultingPag
 import SecureWebDevelopmentPage from "./components/SecureWebDevelopmentPage";
 import TypewriterHeroTitle from "./components/TypewriterHeroTitle";
 import { useLanguage } from "./context/LanguageContext";
+import StorePromoSection from "./store/components/StorePromoSection";
+import StorePage from "./store/pages/StorePage";
+import CategoryPage from "./store/pages/CategoryPage";
+import ProductPage from "./store/pages/ProductPage";
+import CartPage from "./store/pages/CartPage";
+import CheckoutPage from "./store/pages/CheckoutPage";
+import OrdersPage from "./store/pages/OrdersPage";
 
 export default function App() {
   const { language, toggleLanguage, t } = useLanguage();
@@ -30,7 +37,7 @@ export default function App() {
 
   const navigate = React.useCallback((path: string) => {
     window.history.pushState({}, "", path);
-    setCurrentPath(path);
+    setCurrentPath(window.location.pathname);
   }, []);
 
   const navigateHome = React.useCallback(() => {
@@ -47,6 +54,17 @@ export default function App() {
       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
     }, 0);
   }, []);
+
+  const navigateToPath = React.useCallback((path: string) => {
+    if (path === "/#contact") {
+      navigateToContact();
+      return;
+    }
+
+    navigate(path);
+    window.scrollTo({ top: 0, behavior: "auto" });
+    setIsMobileMenuOpen(false);
+  }, [navigate, navigateToContact]);
 
   const navigateToService = React.useCallback((id: string) => {
     if (id === "net-admin") {
@@ -202,6 +220,59 @@ export default function App() {
     );
   }
 
+  if (currentPath === "/store") {
+    return (
+      <>
+        <StorePage onNavigate={navigateToPath} />
+        <Chatbot />
+      </>
+    );
+  }
+
+  if (currentPath.startsWith("/store/category/")) {
+    return (
+      <>
+        <CategoryPage slug={currentPath.replace("/store/category/", "")} onNavigate={navigateToPath} />
+        <Chatbot />
+      </>
+    );
+  }
+
+  if (currentPath.startsWith("/store/product/")) {
+    return (
+      <>
+        <ProductPage slug={currentPath.replace("/store/product/", "")} onNavigate={navigateToPath} />
+        <Chatbot />
+      </>
+    );
+  }
+
+  if (currentPath === "/store/cart") {
+    return (
+      <>
+        <CartPage onNavigate={navigateToPath} />
+        <Chatbot />
+      </>
+    );
+  }
+
+  if (currentPath === "/store/checkout") {
+    return (
+      <>
+        <CheckoutPage onNavigate={navigateToPath} />
+        <Chatbot />
+      </>
+    );
+  }
+
+  if (currentPath === "/account/orders") {
+    return (
+      <>
+        <OrdersPage onNavigate={navigateToPath} />
+        <Chatbot />
+      </>
+    );
+  }
   return (
     <div className="min-h-screen w-full bg-bg-global flex flex-col items-center overflow-x-hidden font-sans select-none">
       
@@ -253,6 +324,13 @@ export default function App() {
                 className="px-3 md:px-4 py-1.5 rounded-full text-[12px] font-semibold text-slate-text hover:text-navy hover:bg-white tracking-wide transition-all cursor-pointer"
               >
                 {t("nav.solutions")}
+              </button>
+              <button
+                onClick={() => navigateToPath("/store")}
+                className="inline-flex items-center gap-1.5 px-3 md:px-4 py-1.5 rounded-full text-[12px] font-semibold text-slate-text hover:text-navy hover:bg-white tracking-wide transition-all cursor-pointer"
+              >
+                <ShoppingBag className="w-3.5 h-3.5 text-[#0b7c9e]" />
+                Store
               </button>
               <button 
                 onClick={() => scrollToSection("why-choose-us")}
@@ -329,6 +407,12 @@ export default function App() {
                 className="w-full text-left px-4 py-2 rounded-xl text-[13px] font-semibold text-slate-text hover:text-[#0b7c9e] hover:bg-slate-50 transition-all cursor-pointer"
               >
                 {t("nav.solutions")}
+              </button>
+              <button
+                onClick={() => navigateToPath("/store")}
+                className="w-full text-left px-4 py-2 rounded-xl text-[13px] font-semibold text-slate-text hover:text-[#0b7c9e] hover:bg-slate-50 transition-all cursor-pointer"
+              >
+                Store
               </button>
               <button 
                 onClick={() => {
@@ -514,13 +598,16 @@ export default function App() {
               {/* 8. Enterprise Solutions Section */}
               <SolutionsSection onNavigateToSolution={navigateToService} />
 
-              {/* 9. Value Pillars & Business Impact Stats */}
+              {/* 9. Compact Store discovery module */}
+              <StorePromoSection onNavigate={navigateToPath} />
+
+              {/* 10. Value Pillars & Business Impact Stats */}
               <WhyChooseUs />
 
-              {/* 10. Client Testimonials Section */}
+              {/* 11. Client Testimonials Section */}
               <TestimonialsSection />
 
-              {/* 11. Secure Contact Dashboard Section */}
+              {/* 12. Secure Contact Dashboard Section */}
               <ContactSection />
         </div>
       </main>

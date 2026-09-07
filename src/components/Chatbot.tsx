@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+﻿import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { MessageSquare, Send, X, Shield, Sparkles, AlertCircle, RefreshCw } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
@@ -31,8 +31,8 @@ export default function Chatbot() {
         role: "model",
         text:
           language === "fr"
-            ? "Bonjour ! Je suis Le Protecteur, l'agent cybernétique de Shield Corporation. Comment puis-je sécuriser vos opérations aujourd'hui ?"
-            : "Hello! I am The Shield Assistant, personal cyber-defense agent of The Shield Corporation. How can I protect your projects today?",
+            ? "Bonjour ! Je suis Shield Assistant. Je peux vous orienter sur nos services IT, la cybersécurité ou le Store."
+            : "Hello! I am Shield Assistant. I can guide you through our IT services, cybersecurity support or Store.",
         timestamp: new Date(),
       },
     ]);
@@ -88,7 +88,7 @@ export default function Chatbot() {
       if (!res.ok) {
         throw new Error(
           language === "fr"
-            ? "Une erreur réseau est survenue lors de la communication."
+            ? "Une erreur rÃ©seau est survenue lors de la communication."
             : "A network error occurred during communication."
         );
       }
@@ -177,7 +177,7 @@ export default function Chatbot() {
                       {isModel && (
                         <div className="flex items-center gap-1 mb-1 font-display text-[10px] font-bold tracking-wider text-[#0b7c9e] uppercase">
                           <Sparkles className="w-3 h-3" />
-                          Shield SecOps
+                          Shield Assistant
                         </div>
                       )}
                       <p className="whitespace-pre-wrap">{msg.text}</p>
@@ -217,7 +217,7 @@ export default function Chatbot() {
                       onClick={() => handleSendMessage(inputValue)}
                       className="inline-flex items-center gap-1 text-[11px] font-bold text-rose-800 underline hover:no-underline cursor-pointer"
                     >
-                      <RefreshCw className="w-3 h-3" /> {language === "fr" ? "Réessayer" : "Retry"}
+                      <RefreshCw className="w-3 h-3" /> {language === "fr" ? "RÃ©essayer" : "Retry"}
                     </button>
                   </div>
                 </div>

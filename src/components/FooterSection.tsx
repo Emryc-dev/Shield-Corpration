@@ -46,6 +46,7 @@ export default function FooterSection() {
             <ul className="space-y-2.5">
               <li><a href="#about" className="text-white/60 hover:text-white transition-colors">{language === "fr" ? "À Propos" : "About Us"}</a></li>
               <li><a href="#services" className="text-white/60 hover:text-white transition-colors">{language === "fr" ? "Catalogue" : "Services Catalog"}</a></li>
+              <li><a href="/store" className="text-white/60 hover:text-white transition-colors">Store</a></li>
               <li><a href="#testimonials" className="text-white/60 hover:text-white transition-colors font-sans">{language === "fr" ? "Partenaires" : "Client Stories"}</a></li>
               <li><a href="#contact" className="text-white/60 hover:text-white transition-colors">{language === "fr" ? "Ticket Sécurisé" : "Secure Contact"}</a></li>
             </ul>

@@ -1,12 +1,12 @@
-import React from "react";
+﻿import React from "react";
 
 interface TypewriterHeroTitleProps {
   language: "en" | "fr";
 }
 
 const titles = {
-  fr: ["Sécurisez votre entreprise", "avec une protection numérique"],
-  en: ["Secure your business", "with digital protection"],
+  fr: ["Construisez un environnement", "numérique fiable"],
+  en: ["Build a reliable", "digital environment"],
 };
 
 export default function TypewriterHeroTitle({ language }: TypewriterHeroTitleProps) {

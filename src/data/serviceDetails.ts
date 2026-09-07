@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { 
   Network, 
   ShieldCheck, 
@@ -88,50 +88,50 @@ export interface DetailedServiceContent {
 export const serviceDetails: Record<string, { en: DetailedServiceContent; fr: DetailedServiceContent }> = {
   "net-admin": {
     en: {
-      subtitle: "Secure Routing & Topology Resilience",
-      overview: "Our enterprise network division designs and maintains highly secure, resilient architectures. We isolate critical assets, engineer fail-safe routing rules, and monitor packet flows to block external network layer threats before they disrupt your workforce.",
+      subtitle: "Reliable Network Operations",
+      overview: "We design and maintain reliable network architectures, improve routing continuity and monitor traffic so your teams can work with fewer interruptions.",
       techSpecs: ["WireGuard VPN Integrations", "Zero-Trust VLAN Segmentation", "Advanced SD-WAN Deployments", "Interactive BGP Multi-Homing Controls"],
       deliverables: ["Physical & Logical Topology Blueprints", "Redundancy SLA Validation Logs", "Intrusion Detection System (IDS) Fine-Tuning"],
       impactMetric: "99.999% network path resilience achieved across 14 enterprise rollouts."
     },
     fr: {
-      subtitle: "Routage Sécurisé & Résilience Topologique",
-      overview: "Notre pôle ingénierie réseau conçoit des architectures hermétiques de communication d'entreprise. Nous isolons vos flux critiques, configurons des règles de routage redondantes et analysons le trafic réseau en temps réel pour neutraliser toute menace d'intrusion logique.",
-      techSpecs: ["Tunnels VPN WireGuard Sécurisés", "Segmentation Web Zéro-Trust VLAN", "Déploiements SD-WAN d'Entreprise", "Configuration Multihébergement BGP"],
-      deliverables: ["Plans de Topologie Réseau Physiques & Logiques", "Rapports de Validation SLA de Redondance", "Calibrage de Sondes d'Intrusion (IDS)"],
-      impactMetric: "99,999% de continuité réseau garantie sur nos derniers déploiements d'envergure."
+      subtitle: "Routage SÃ©curisÃ© & RÃ©silience Topologique",
+      overview: "Notre équipe réseau conçoit et maintient des architectures fiables, améliore la continuité du routage et surveille le trafic pour limiter les interruptions.",
+      techSpecs: ["Tunnels VPN WireGuard SÃ©curisÃ©s", "Segmentation Web ZÃ©ro-Trust VLAN", "DÃ©ploiements SD-WAN d'Entreprise", "Configuration MultihÃ©bergement BGP"],
+      deliverables: ["Plans de Topologie RÃ©seau Physiques & Logiques", "Rapports de Validation SLA de Redondance", "Calibrage de Sondes d'Intrusion (IDS)"],
+      impactMetric: "99,999% de continuitÃ© rÃ©seau garantie sur nos derniers dÃ©ploiements d'envergure."
     }
   },
   "sec-admin": {
     en: {
-      subtitle: "Enterprise Identity & Perimeter Control",
-      overview: "Hardening operating environments is the core of active system defense. We configure strict Multi-Factor Authentication paths, design zero-trust policy registers, enforce strong firewall configurations, and coordinate encrypted work-from-home channels.",
+      subtitle: "Identity and Access Security",
+      overview: "We configure multi-factor authentication, access rules, firewall policies and secure remote work practices to improve protection across your environment.",
       techSpecs: ["WebAuthn & Biometric Keys integration", "Granular RBAC Policy Matrix", "WAF (Web Application Firewall) Hardening", "Endpoint Detection & Response (EDR) Deployments"],
       deliverables: ["Identity Access Governance Playbook", "Firewall Rules Validation Reports", "Active Directory Security Audit Checklist"],
       impactMetric: "Zero unauthorized session elevations recorded over 12 months."
     },
     fr: {
-      subtitle: "Contrôle des Périmètres & Identités Numériques",
-      overview: "Le durcissement du périmètre d'entreprise est la base logique de votre sécurité opérationnelle. Nous mettons en œuvre des accès à double facteur stricts (MFA), configurons les registres d'autorisations zéro-trust et surveillons la conformité des postes de travail.",
-      techSpecs: ["Intégration Clés Biométriques WebAuthn / FIDO2", "Matrice d'Habilitations Granulaires (RBAC)", "Règles d'Action de Pare-feu Applicatif (WAF)", "Déploiements d'outils de détection EDR"],
-      deliverables: ["Charte de Gouvernance des Accès d'Identité", "Rapport d'Audit des Règles de Pare-feu", "Cahier de Recette Active Directory Durci"],
-      impactMetric: "Zéro élévation illégitime de privilèges de session constatée sur l'ensemble de nos clients administrés."
+      subtitle: "ContrÃ´le des PÃ©rimÃ¨tres & IdentitÃ©s NumÃ©riques",
+      overview: "Nous configurons les accès, les règles de pare-feu, les politiques de sécurité et les pratiques de travail à distance pour mieux protéger votre environnement.",
+      techSpecs: ["IntÃ©gration ClÃ©s BiomÃ©triques WebAuthn / FIDO2", "Matrice d'Habilitations Granulaires (RBAC)", "RÃ¨gles d'Action de Pare-feu Applicatif (WAF)", "DÃ©ploiements d'outils de dÃ©tection EDR"],
+      deliverables: ["Charte de Gouvernance des AccÃ¨s d'IdentitÃ©", "Rapport d'Audit des RÃ¨gles de Pare-feu", "Cahier de Recette Active Directory Durci"],
+      impactMetric: "ZÃ©ro Ã©lÃ©vation illÃ©gitime de privilÃ¨ges de session constatÃ©e sur l'ensemble de nos clients administrÃ©s."
     }
   },
   "pentest": {
     en: {
-      subtitle: "Proactive Vulnerability Exploitation",
-      overview: "The best defense is an ethical offense. Our certified pentesting group launches targeted simulations simulating real threat scenarios to evaluate your infrastructure robustness, finding internal pathways and logical design flaws before adversaries do.",
+      subtitle: "Controlled Vulnerability Assessment",
+      overview: "Our certified pentesting team runs controlled simulations to identify vulnerabilities, document risk and help you correct weaknesses before they affect your activity.",
       techSpecs: ["Active Directory Penetration Scans", "Black-Box Network Explorations", "Social Engineering Simulations", "Binary Reverse Engineering Assessment"],
       deliverables: ["Executive Risk Summary Blueprint", "Reproducible Proof-of-Concepts (PoC)", "CVSS Remediation Roadmap Matrix"],
       impactMetric: "Over 150+ high-severity architectural vulnerabilities discovered and patched."
     },
     fr: {
-      subtitle: "Exploitation Vulnérable Offensive",
-      overview: "La meilleure des défenses réside dans l'anticipation éthique de l'attaque. Nos testeurs d'intrusion certifiés exécutent de véritables scénarios de compromission et d'exfiltration pour éprouver vos défenses et corriger les failles avant qu'elles ne soient exploitées.",
-      techSpecs: ["Tests de Pénétration Active Directory", "Infiltrations Techniques en 'Boîte Noire'", "Campagnes de Simulation de Phishing éthique", "Rétro-ingénierie Logicielle & Binaire"],
-      deliverables: ["Rapport d'Audit d'Intrusion Exécutif", "Analyses Techniques de Filles de Preuve de Concept (PoC)", "Matrice de Correctifs Priorisés CVSS"],
-      impactMetric: "Plus de 150 vulnérabilités critiques identifiées et résolues avec succès cette année."
+      subtitle: "Exploitation VulnÃ©rable Offensive",
+      overview: "Notre équipe réalise des simulations contrôlées pour identifier les vulnérabilités, documenter les risques et vous aider à corriger les faiblesses prioritaires.",
+      techSpecs: ["Tests de PÃ©nÃ©tration Active Directory", "Infiltrations Techniques en 'BoÃ®te Noire'", "Campagnes de Simulation de Phishing Ã©thique", "RÃ©tro-ingÃ©nierie Logicielle & Binaire"],
+      deliverables: ["Rapport d'Audit d'Intrusion ExÃ©cutif", "Analyses Techniques de Filles de Preuve de Concept (PoC)", "Matrice de Correctifs PriorisÃ©s CVSS"],
+      impactMetric: "Plus de 150 vulnÃ©rabilitÃ©s critiques identifiÃ©es et rÃ©solues avec succÃ¨s cette annÃ©e."
     }
   },
   "web-test": {
@@ -144,10 +144,10 @@ export const serviceDetails: Record<string, { en: DetailedServiceContent; fr: De
     },
     fr: {
       subtitle: "Audit Fin de Portails & Endpoints d'API",
-      overview: "Les applications web modernes sont la cible privilégiée de détournements logiques et de failles applicatives. Nous auditons vos formulaires, vos cinématiques de paiement et l'épaisseur de vos clés d'API pour vous assurer d'une imperméabilité totale.",
-      techSpecs: ["Évaluation Approfondie OWASP Top 10", "Validation de Filles d'Injection SQL & XSS", "Audit de Sécurité API REST & GraphQL", "Tests d'Évasion de Jeton de Session"],
-      deliverables: ["Rapport de Reproduction Technique", "Guides de Correction de Code pour Développeurs", "Badge de Conformité Sécuritaire Web"],
-      impactMetric: "100% des applications auditées mises en conformité avec nos standards de code."
+      overview: "Les applications web modernes sont la cible privilÃ©giÃ©e de dÃ©tournements logiques et de failles applicatives. Nous auditons vos formulaires, vos cinÃ©matiques de paiement et l'Ã©paisseur de vos clÃ©s d'API pour vous assurer d'une impermÃ©abilitÃ© totale.",
+      techSpecs: ["Ã‰valuation Approfondie OWASP Top 10", "Validation de Filles d'Injection SQL & XSS", "Audit de SÃ©curitÃ© API REST & GraphQL", "Tests d'Ã‰vasion de Jeton de Session"],
+      deliverables: ["Rapport de Reproduction Technique", "Guides de Correction de Code pour DÃ©veloppeurs", "Badge de ConformitÃ© SÃ©curitaire Web"],
+      impactMetric: "100% des applications auditÃ©es mises en conformitÃ© avec nos standards de code."
     }
   },
   "cloud-comp": {
@@ -160,26 +160,26 @@ export const serviceDetails: Record<string, { en: DetailedServiceContent; fr: De
     },
     fr: {
       subtitle: "Sandboxing Multi-tenant & Infrastructure as Code",
-      overview: "La transition vers les infrastructures Cloud exige un cloisonnement absolu de vos ressources. Nous concevons vos pipelines de déploiement sécurisés, écrivons les scripts de provisionnement automatisés et isolons vos conteneurs virtuels (Docker/Kubernetes).",
-      techSpecs: ["Grappes Kubernetes Durcies (K8s)", "Securisation IaC avec Terraform & Ansible", "Règles d'Accès API Gateway Avancées", "Chiffrement d'Enveloppe KMS Serverless"],
-      deliverables: ["Plans Cloud Multi-Région à Haute Disponibilité", "Fiche de Notation de Sécurité d'Infrastructure Cloud", "Guides de Durcissement d'Images de Conteneurs"],
-      impactMetric: "Accompagnement de 8 architectures gérant jusqu'à 5 millions d'appels par jour."
+      overview: "La transition vers les infrastructures Cloud exige un cloisonnement absolu de vos ressources. Nous concevons vos pipelines de dÃ©ploiement sÃ©curisÃ©s, Ã©crivons les scripts de provisionnement automatisÃ©s et isolons vos conteneurs virtuels (Docker/Kubernetes).",
+      techSpecs: ["Grappes Kubernetes Durcies (K8s)", "Securisation IaC avec Terraform & Ansible", "RÃ¨gles d'AccÃ¨s API Gateway AvancÃ©es", "Chiffrement d'Enveloppe KMS Serverless"],
+      deliverables: ["Plans Cloud Multi-RÃ©gion Ã  Haute DisponibilitÃ©", "Fiche de Notation de SÃ©curitÃ© d'Infrastructure Cloud", "Guides de Durcissement d'Images de Conteneurs"],
+      impactMetric: "Accompagnement de 8 architectures gÃ©rant jusqu'Ã  5 millions d'appels par jour."
     }
   },
   "sec-host": {
     en: {
-      subtitle: "Geo-Redundant Isolated Virtual Nodes",
-      overview: "We offer private virtualization nodes with robust defenses. Benefit from built-in high-performance DDoS scrubbing, geographical replica mirrors, continuous system memory integrity sweeps, and total database confidentiality.",
+      subtitle: "Reliable Secure Hosting",
+      overview: "We provide secure hosting environments with performance monitoring, backups, availability controls and data protection practices adapted to business applications.",
       techSpecs: ["Hardware-Level Confidential Memory Shielding", "Anycast Multi-Gbps Anti-DDoS Scrubbing", "Encrypted-at-rest NVMe Storage arrays", "Automatic Off-Site Geographically Mirroring"],
       deliverables: ["Uptime SLA Certification (99.99%)", "Bare-Metal Node Compliance Reports", "Bare-Metal Disaster Recovery Plan (DRP)"],
       impactMetric: "Zero downtime minutes documented across our entire hosted nodes directory."
     },
     fr: {
-      subtitle: "Noeuds Virtuels Cloisonnés Géo-Isolés",
-      overview: "Nous vous fournissons des environnements d'hébergement privés robustes. Profitez d'une protection DDoS intégrée de haut niveau, de miroirs géographiques de secours, de balayages d'intégrité de la mémoire RAM en temps réel et d'un stockage chiffré.",
-      techSpecs: ["Isolation Matérielle de Mémoire (AMD SEV / SGX)", "Filtrage Anti-DDoS Anycast Multi-Gigabits", "Stockage NVMe Chiffré au Repos", "Sauvegarde Systématique Géo-Redondante"],
-      deliverables: ["Certificat SLA d'Hébergement 99,99%", "Rapport de Durcissement de l'Hyperviseur", "Plan de Reprise d'Activité Technique (PRA)"],
-      impactMetric: "0 minute d'arrêt technique subie par nos clients hébergés."
+      subtitle: "Noeuds Virtuels CloisonnÃ©s GÃ©o-IsolÃ©s",
+      overview: "Nous fournissons des environnements d hébergement fiables avec supervision, sauvegardes, contrôles de disponibilité et pratiques de protection des données.",
+      techSpecs: ["Isolation MatÃ©rielle de MÃ©moire (AMD SEV / SGX)", "Filtrage Anti-DDoS Anycast Multi-Gigabits", "Stockage NVMe ChiffrÃ© au Repos", "Sauvegarde SystÃ©matique GÃ©o-Redondante"],
+      deliverables: ["Certificat SLA d'HÃ©bergement 99,99%", "Rapport de Durcissement de l'Hyperviseur", "Plan de Reprise d'ActivitÃ© Technique (PRA)"],
+      impactMetric: "0 minute d'arrÃªt technique subie par nos clients hÃ©bergÃ©s."
     }
   },
   "cyber-cons": {
@@ -191,27 +191,27 @@ export const serviceDetails: Record<string, { en: DetailedServiceContent; fr: De
       impactMetric: "100% success rate in preparing clients for rigorous security certifications."
     },
     fr: {
-      subtitle: "Standards de Conformité & Modélisation de Menaces",
-      overview: "Nous aidons les équipes dirigeantes à aligner leurs pratiques opérationnelles sur les cadres réglementaires (ISO, RGPD). Nous structurons vos manuels de réaction d'urgence et sensibilisons vos équipes de travail aux bons réflexes défensifs.",
-      techSpecs: ["Cartographie Documentaire ISO 27001 / SOC 2", "Suivi RGPD & Matrice des Flux de Données", "Modélisation de Cibles & Vecteurs d'Attaque (STRIDE)", "Évaluation d'Indicateurs de Sensibilité Humaine"],
-      deliverables: ["Charte Interne de Gouvernance Cyber-Sécurisée", "Matrice d'Analyse des Risques Stratégiques", "Kit Pédagogique de Sensibilisation pour Collaborateurs"],
-      impactMetric: "Taux de réussite de 100% sur la préparation aux audits externes certifiés."
+      subtitle: "Standards de ConformitÃ© & ModÃ©lisation de Menaces",
+      overview: "Nous aidons les Ã©quipes dirigeantes Ã  aligner leurs pratiques opÃ©rationnelles sur les cadres rÃ©glementaires (ISO, RGPD). Nous structurons vos manuels de rÃ©action d'urgence et sensibilisons vos Ã©quipes de travail aux bons rÃ©flexes dÃ©fensifs.",
+      techSpecs: ["Cartographie Documentaire ISO 27001 / SOC 2", "Suivi RGPD & Matrice des Flux de DonnÃ©es", "ModÃ©lisation de Cibles & Vecteurs d'Attaque (STRIDE)", "Ã‰valuation d'Indicateurs de SensibilitÃ© Humaine"],
+      deliverables: ["Charte Interne de Gouvernance Cyber-SÃ©curisÃ©e", "Matrice d'Analyse des Risques StratÃ©giques", "Kit PÃ©dagogique de Sensibilisation pour Collaborateurs"],
+      impactMetric: "Taux de rÃ©ussite de 100% sur la prÃ©paration aux audits externes certifiÃ©s."
     }
   },
   "sec-dev": {
     en: {
-      subtitle: "Clean Defensive Architectural Software",
-      overview: "Security must not be added at the end; it must be baked into the design. We build elegant cloud portals, clean desktop interfaces, and responsive business applications using state-of-the-art secure coding standards and modern frameworks.",
+      subtitle: "Secure Application Engineering",
+      overview: "Security should be integrated from the first design decisions. We build reliable websites, portals and applications with secure coding practices and modern frameworks.",
       techSpecs: ["Cryptographic Data Signing Hooks", "Decoupled Clean APIs (NestJS / FastAPI)", "Signed JWT Session Lifecycle Managers", "Automated DevSecOps Static Analysis (SAST)"],
       deliverables: ["Pristine TypeScript Frontend & Backend Source Code", "Automated Threat Protection Build-Pipeline", "Post-Deployment Software Verification Sign-off"],
       impactMetric: "12 custom systems built with zero security patches required post-launch."
     },
     fr: {
-      subtitle: "Logiciels & Portails Natifs Défensifs",
-      overview: "La sécurité logicielle se travaille dès la première ligne de code écrite. Nous réalisons vos portails sur mesure et applications web complexes en intégrant nativement des barrières cryptographiques, des clés de session robustes et des filtres de détection.",
-      techSpecs: ["Signatures Cryptographiques Automatiques en Base", "Architectures Cloisonnées (FastAPI / NestJS)", "Gestion Unifiée des Jetons JWT Temporaires", "Vérifications de Code Statiques (SAST) dans le CI/CD"],
-      deliverables: ["Code Source Épuré TypeScript (Front-end & Back-end)", "Pipeline d'Intégration Continue Sécurisé de Bout en Bout", "Rapport de Recette Logicielle et de Durcissement"],
-      impactMetric: "12 systèmes durcis livrés avec zéro faille applicative détectée après mise en ligne."
+      subtitle: "Logiciels & Portails Natifs DÃ©fensifs",
+      overview: "La sécurité logicielle se construit dès la conception. Nous réalisons des sites, portails et applications avec des pratiques de développement fiables et sécurisées.",
+      techSpecs: ["Signatures Cryptographiques Automatiques en Base", "Architectures CloisonnÃ©es (FastAPI / NestJS)", "Gestion UnifiÃ©e des Jetons JWT Temporaires", "VÃ©rifications de Code Statiques (SAST) dans le CI/CD"],
+      deliverables: ["Code Source Ã‰purÃ© TypeScript (Front-end & Back-end)", "Pipeline d'IntÃ©gration Continue SÃ©curisÃ© de Bout en Bout", "Rapport de Recette Logicielle et de Durcissement"],
+      impactMetric: "12 systÃ¨mes durcis livrÃ©s avec zÃ©ro faille applicative dÃ©tectÃ©e aprÃ¨s mise en ligne."
     }
   }
 };
