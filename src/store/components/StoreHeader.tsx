@@ -24,14 +24,14 @@ export default function StoreHeader({ onNavigate, title = "The Shield Corporatio
         <button
           type="button"
           onClick={() => onNavigate("/store")}
-          className="hidden items-center gap-2 text-left sm:flex"
+          className="flex min-w-0 items-center gap-2 text-left"
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-navy text-white">
+          <span className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-navy text-white md:flex">
             <ShoppingBag className="h-5 w-5" />
           </span>
           <span>
-            <span className="block font-display text-[15px] font-bold tracking-tight text-navy">{title}</span>
-            <span className="block text-[11px] font-semibold text-slate-text">Technologie et accessoires</span>
+            <span className="block font-display text-[15px] font-bold tracking-tight text-navy"><span className="sm:hidden">Shield Store</span><span className="hidden sm:inline">{title}</span></span>
+            <span className="hidden text-[11px] font-semibold text-slate-text md:block">Technologie et accessoires</span>
           </span>
         </button>
 

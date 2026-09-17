@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronRight, ShieldCheck, Menu, X, Globe, ShoppingBag } from "lucide-react";
 import Logo from "./components/Logo";
@@ -28,6 +28,10 @@ import ProductPage from "./store/pages/ProductPage";
 import CartPage from "./store/pages/CartPage";
 import CheckoutPage from "./store/pages/CheckoutPage";
 import OrdersPage from "./store/pages/OrdersPage";
+const AdminStoreDashboardPage = React.lazy(() => import('./store/pages/admin/AdminStoreDashboardPage'));
+const AdminProductsPage = React.lazy(() => import('./store/pages/admin/AdminProductsPage'));
+const AdminOrdersPage = React.lazy(() => import('./store/pages/admin/AdminOrdersPage'));
+const AdminCategoriesPage = React.lazy(() => import('./store/pages/admin/AdminCategoriesPage'));
 
 export default function App() {
   const { language, toggleLanguage, t } = useLanguage();
@@ -220,6 +224,21 @@ export default function App() {
     );
   }
 
+  if (currentPath === "/admin/store") {
+    return <AdminStoreDashboardPage onNavigate={navigateToPath} />;
+  }
+
+  if (currentPath === "/admin/store/products") {
+    return <AdminProductsPage onNavigate={navigateToPath} />;
+  }
+
+  if (currentPath === "/admin/store/orders") {
+    return <AdminOrdersPage onNavigate={navigateToPath} />;
+  }
+
+  if (currentPath === "/admin/store/categories") {
+    return <AdminCategoriesPage onNavigate={navigateToPath} />;
+  }
   if (currentPath === "/store") {
     return (
       <>
@@ -516,7 +535,7 @@ export default function App() {
                         className="bg-navy hover:bg-navy-dark text-white font-semibold rounded-full px-5 sm:px-6 py-3.5 text-[12px] sm:text-[13px] shadow-lg hover:shadow-xl transition-all cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap"
                       >
                         <ShieldCheck className="w-4 h-4 text-white/90" />
-                        {language === "fr" ? "Demander un Audit de Sécurité" : "Request a Security Audit"}
+                        {language === "fr" ? "Demander un Audit de SÃ©curitÃ©" : "Request a Security Audit"}
                       </motion.button>
 
                       <button
