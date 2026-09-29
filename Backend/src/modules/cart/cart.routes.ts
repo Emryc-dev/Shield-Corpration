@@ -1,0 +1,14 @@
+import { Router } from "express";
+import { z } from "zod";
+import { authenticate } from "../../middleware/auth";
+import { validate } from "../../middleware/validate";
+import { asyncHandler } from "../../utils/async-handler";
+import { ok } from "../../utils/response";
+import { cartService } from "./cart.service";
+export const cartRouter = Router();
+cartRouter.use(authenticate);
+cartRouter.get("/", asyncHandler(async (req, res) => ok(res, await cartService.get(req.user!.id))));
+cartRouter.post("/items", validate(z.object({ body: z.object({ productId: z.string(), quantity: z.number().int().min(1).max(99) }) })), asyncHandler(async (req, res) => ok(res, await cartService.add(req.user!.id, req.body.productId, req.body.quantity), 201)));
+cartRouter.patch("/items/:id", validate(z.object({ params: z.object({ id: z.string() }), body: z.object({ quantity: z.number().int().min(0).max(99) }) })), asyncHandler(async (req, res) => ok(res, await cartService.update(req.user!.id, String(req.params.id), req.body.quantity))));
+cartRouter.delete("/items/:id", asyncHandler(async (req, res) => ok(res, await cartService.remove(req.user!.id, String(req.params.id)))));
+cartRouter.delete("/", asyncHandler(async (req, res) => ok(res, await cartService.clear(req.user!.id))));
