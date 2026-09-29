@@ -27,7 +27,10 @@ import CategoryPage from "./store/pages/CategoryPage";
 import ProductPage from "./store/pages/ProductPage";
 import CartPage from "./store/pages/CartPage";
 import CheckoutPage from "./store/pages/CheckoutPage";
+import PaymentCallbackPage from "./store/pages/PaymentCallbackPage";
 import OrdersPage from "./store/pages/OrdersPage";
+import StoreAuthPage from "./store/pages/StoreAuthPage";
+import RequireStoreAuth from "./store/components/RequireStoreAuth";
 const AdminStoreDashboardPage = React.lazy(() => import('./store/pages/admin/AdminStoreDashboardPage'));
 const AdminProductsPage = React.lazy(() => import('./store/pages/admin/AdminProductsPage'));
 const AdminOrdersPage = React.lazy(() => import('./store/pages/admin/AdminOrdersPage'));
@@ -277,17 +280,35 @@ export default function App() {
 
   if (currentPath === "/store/checkout") {
     return (
-      <>
+      <RequireStoreAuth currentPath={currentPath} onNavigate={navigateToPath}>
         <CheckoutPage onNavigate={navigateToPath} />
         <Chatbot />
-      </>
+      </RequireStoreAuth>
+    );
+  }
+
+  if (currentPath === "/store/payment/callback") {
+    return (
+      <RequireStoreAuth currentPath={currentPath} onNavigate={navigateToPath}>
+        <PaymentCallbackPage onNavigate={navigateToPath} />
+        <Chatbot />
+      </RequireStoreAuth>
     );
   }
 
   if (currentPath === "/account/orders") {
     return (
-      <>
+      <RequireStoreAuth currentPath={currentPath} onNavigate={navigateToPath}>
         <OrdersPage onNavigate={navigateToPath} />
+        <Chatbot />
+      </RequireStoreAuth>
+    );
+  }
+
+  if (currentPath === "/account/login") {
+    return (
+      <>
+        <StoreAuthPage onNavigate={navigateToPath} />
         <Chatbot />
       </>
     );

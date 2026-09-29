@@ -5,15 +5,28 @@ function toApiQuery(query: ProductQuery) {
   return {
     category: query.category,
     search: query.search,
-    ordering: query.ordering,
+    sort: query.ordering,
     page: query.page,
-    min_price: query.minPrice,
-    max_price: query.maxPrice,
+    minPrice: query.minPrice,
+    maxPrice: query.maxPrice,
     brand: query.brand,
-    availability: query.availability,
+    available: query.availability && query.availability !== "out_of_stock" ? true : undefined,
   };
 }
 import { apiRequest } from "./client";
+
+function normalizeProduct(product: any): Product {
+  const stock = Number(product.stock ?? 0);
+  return {
+    ...product,
+    shortDescription: product.shortDescription,
+    price: product.price == null ? undefined : { amount: Number(product.price), currency: "XAF" },
+    oldPrice: product.compareAtPrice == null ? undefined : { amount: Number(product.compareAtPrice), currency: "XAF" },
+    availability: stock <= 0 ? "out_of_stock" : stock <= 5 ? "limited" : "in_stock",
+    images: (product.images || []).map((image: any) => ({ ...image, alt: image.alt || product.name })),
+    features: product.attributes ? Object.entries(product.attributes).map(([name, value]) => ({ name, value: String(value) })) : [],
+  };
+}
 
 function filterFallbackProducts(query: ProductQuery = {}): ProductListResponse {
   let results = [...fallbackProducts];
@@ -59,7 +72,8 @@ function filterFallbackProducts(query: ProductQuery = {}): ProductListResponse {
 
 export async function getProducts(query: ProductQuery = {}): Promise<ProductListResponse> {
   try {
-    return await apiRequest<ProductListResponse>("/api/store/products/", { query: toApiQuery(query) });
+    const response = await apiRequest<any>("/api/products", { query: toApiQuery(query) });
+    return { results: (response.items || []).map(normalizeProduct), count: response.pagination?.total || 0, next: null, previous: null };
   } catch {
     return filterFallbackProducts(query);
   }
@@ -67,7 +81,7 @@ export async function getProducts(query: ProductQuery = {}): Promise<ProductList
 
 export async function getProduct(slug: string): Promise<Product | null> {
   try {
-    return await apiRequest<Product>(`/api/store/products/${slug}/`);
+    return normalizeProduct(await apiRequest<any>(`/api/products/${slug}`));
   } catch {
     return fallbackProducts.find((product) => product.slug === slug) || null;
   }
@@ -75,7 +89,7 @@ export async function getProduct(slug: string): Promise<Product | null> {
 
 export async function getCategories(): Promise<Category[]> {
   try {
-    return await apiRequest<Category[]>("/api/store/categories/");
+    return (await apiRequest<any[]>("/api/categories")).map((category) => ({ ...category, image: category.imageUrl, productCount: category._count?.products }));
   } catch {
     return fallbackCategories;
   }
@@ -83,7 +97,8 @@ export async function getCategories(): Promise<Category[]> {
 
 export async function getCategory(slug: string): Promise<Category | null> {
   try {
-    return await apiRequest<Category>(`/api/store/categories/${slug}/`);
+    const category = await apiRequest<any>(`/api/categories/${slug}`);
+    return { ...category, image: category.imageUrl, productCount: category._count?.products };
   } catch {
     return fallbackCategories.find((category) => category.slug === slug) || null;
   }
