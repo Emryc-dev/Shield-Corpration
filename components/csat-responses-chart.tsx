@@ -1,130 +1,43 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import type { ComponentProps } from "react";
-import { Bar, BarChart, Rectangle, XAxis } from "recharts";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-import {
-	type ChartConfig,
-	ChartContainer,
-	ChartTooltip,
-	ChartTooltipContent,
-} from "@/components/ui/chart";
-
-const chartData = [
-	{ day: "Apr 8", direct: 11, email: 9, social: 4 },
-	{ day: "Apr 9", direct: 15, email: 11, social: 5 },
-	{ day: "Apr 10", direct: 13, email: 10, social: 5 },
-	{ day: "Apr 11", direct: 16, email: 12, social: 5 },
-	{ day: "Apr 12", direct: 12, email: 10, social: 5 },
-	{ day: "Apr 13", direct: 14, email: 10, social: 6 },
-	{ day: "Apr 14", direct: 11, email: 9, social: 5 },
-	{ day: "Apr 15", direct: 16, email: 7, social: 4 },
-	{ day: "Apr 16", direct: 13, email: 11, social: 5 },
-	{ day: "Apr 17", direct: 15, email: 11, social: 6 },
-] as const;
+import { type ComponentProps, useMemo, useState } from "react";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import type { AdminOverview } from "@/src/store/api/admin";
 
 const chartConfig = {
-	direct: {
-		label: "Direct",
-		color: "var(--chart-1)",
-	},
-	email: {
-		label: "Email",
-		color: "var(--chart-3)",
-	},
-	social: {
-		label: "Social",
-		color: "var(--chart-5)",
-	},
+  paid: { label: "Payées", color: "var(--chart-1)" },
+  pending: { label: "En attente", color: "var(--chart-3)" },
+  cancelled: { label: "Annulées", color: "var(--chart-5)" },
 } satisfies ChartConfig;
 
-/** Half of bar width (8) so ends read as fully rounded “caps”. */
-const BAR_RADIUS = 5;
+const shortDate = (value: string) => new Intl.DateTimeFormat("fr-FR", { day: "2-digit", month: "short", timeZone: "UTC" }).format(new Date(`${value}T00:00:00Z`));
 
-/**
- *  column hover background.
- */
-function ColumnHoverCursor(props: React.ComponentProps<typeof Rectangle>) {
-	return (
-		<Rectangle
-			fill="var(--muted)"
-			fillOpacity={0.5}
-			radius={BAR_RADIUS * 2}
-			stroke="none"
-			{...props}
-		/>
-	);
-}
-
-export function CsatResponsesChart({
-	className,
-	...props
-}: ComponentProps<typeof Card>) {
-	return (
-		<Card
-			className={cn("shadow-none md:col-span-2 dark:ring-0", className)}
-			{...props}
-		>
-			<CardHeader>
-				<CardTitle>CSAT responses</CardTitle>
-				<CardDescription>
-					Post-resolution surveys submitted per day by channel, last 10 days.
-				</CardDescription>
-			</CardHeader>
-			<CardContent>
-				<ChartContainer className="aspect-video w-full" config={chartConfig}>
-					<BarChart accessibilityLayer data={[...chartData]}>
-						<XAxis
-							axisLine={false}
-							dataKey="day"
-							interval={0}
-							minTickGap={8}
-							tickFormatter={(value) => String(value)}
-							tickLine={false}
-							tickMargin={10}
-						/>
-						<ChartTooltip
-							content={<ChartTooltipContent hideLabel />}
-							cursor={<ColumnHoverCursor />}
-						/>
-						<Bar
-							background={{
-								fill: "var(--muted)",
-								radius: BAR_RADIUS,
-							}}
-							barSize={8}
-							dataKey="social"
-							fill="var(--color-social)"
-							overflow="visible"
-							radius={[0, 0, BAR_RADIUS, BAR_RADIUS]}
-							stackId="csat"
-						/>
-						<Bar
-							barSize={8}
-							dataKey="email"
-							fill="var(--color-email)"
-							overflow="visible"
-							radius={0}
-							stackId="csat"
-						/>
-						<Bar
-							barSize={8}
-							dataKey="direct"
-							fill="var(--color-direct)"
-							overflow="visible"
-							radius={[BAR_RADIUS, BAR_RADIUS, 0, 0]}
-							stackId="csat"
-						/>
-					</BarChart>
-				</ChartContainer>
-			</CardContent>
-		</Card>
-	);
+export function CsatResponsesChart({ data, className, ...props }: ComponentProps<typeof Card> & { data: AdminOverview["orderTrend"] }) {
+  const [period, setPeriod] = useState("30");
+  const rows = useMemo(() => data.slice(-Number(period)), [data, period]);
+  return (
+    <Card className={cn("min-w-0 shadow-none md:col-span-2 dark:ring-0", className)} {...props}>
+      <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="space-y-1.5"><CardTitle>Activité des commandes</CardTitle><CardDescription>Commandes payées, en attente et annulées par jour.</CardDescription></div>
+        <Select value={period} onValueChange={setPeriod}><SelectTrigger size="sm" className="w-full sm:w-36" aria-label="Période des commandes"><SelectValue /></SelectTrigger><SelectContent align="end"><SelectItem value="7">7 derniers jours</SelectItem><SelectItem value="30">30 derniers jours</SelectItem></SelectContent></Select>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer className="h-[260px] w-full" config={chartConfig}>
+          <BarChart accessibilityLayer data={rows} margin={{ left: 0, right: 8 }}>
+            <CartesianGrid vertical={false} />
+            <XAxis dataKey="date" axisLine={false} tickLine={false} tickMargin={8} minTickGap={24} tickFormatter={shortDate} />
+            <YAxis allowDecimals={false} axisLine={false} tickLine={false} width={28} />
+            <ChartTooltip content={<ChartTooltipContent />} cursor={{ fill: "var(--muted)", opacity: 0.45 }} />
+            <Bar dataKey="paid" stackId="orders" fill="var(--color-paid)" radius={[0, 0, 3, 3]} />
+            <Bar dataKey="pending" stackId="orders" fill="var(--color-pending)" />
+            <Bar dataKey="cancelled" stackId="orders" fill="var(--color-cancelled)" radius={[3, 3, 0, 0]} />
+          </BarChart>
+        </ChartContainer>
+      </CardContent>
+    </Card>
+  );
 }

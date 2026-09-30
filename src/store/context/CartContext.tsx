@@ -1,5 +1,7 @@
 import React from "react";
+import { AnimatePresence } from "motion/react";
 import type { CartItem, Product } from "../types";
+import CartAddedToast from "../components/CartAddedToast";
 
 interface CartContextValue {
   items: CartItem[];
@@ -26,6 +28,7 @@ function readStoredCart() {
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = React.useState<CartItem[]>(() => readStoredCart());
+  const [notification, setNotification] = React.useState<{ id: number; product: Product; quantity: number } | null>(null);
 
   React.useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
@@ -56,7 +59,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         },
       ];
     });
+    setNotification({ id: Date.now(), product, quantity });
   }, []);
+
+  React.useEffect(() => {
+    if (!notification) return;
+    const timeout = window.setTimeout(() => setNotification(null), 4600);
+    return () => window.clearTimeout(timeout);
+  }, [notification]);
 
   const removeItem = React.useCallback((productId: string) => {
     setItems((currentItems) => currentItems.filter((item) => item.product.id !== productId));
@@ -103,7 +113,21 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     [addItem, clearCart, estimatedTotal, itemCount, items, pricedItems.length, removeItem, updateQuantity]
   );
 
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+  const viewCart = React.useCallback(() => {
+    setNotification(null);
+    window.history.pushState({}, "", "/store/cart");
+    window.dispatchEvent(new PopStateEvent("popstate"));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  return <CartContext.Provider value={value}>
+    {children}
+    <div className="pointer-events-none fixed inset-x-3 top-3 z-[200] flex justify-center sm:top-5">
+      <AnimatePresence mode="wait">
+        {notification && <CartAddedToast key={notification.id} product={notification.product} quantity={notification.quantity} onClose={() => setNotification(null)} onViewCart={viewCart} />}
+      </AnimatePresence>
+    </div>
+  </CartContext.Provider>;
 }
 
 export function useCart() {

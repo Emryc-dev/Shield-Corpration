@@ -1,15 +1,32 @@
 import type { MoneyAmount, ProductAvailability } from "../types";
 
-export function formatMoney(value?: MoneyAmount) {
-  if (!value) {
+export function formatMoney(
+  value?: MoneyAmount | number | string,
+  fallbackCurrency = "XAF",
+) {
+  if (value === undefined || value === null) {
     return "Prix à confirmer";
   }
 
-  return new Intl.NumberFormat("fr-CM", {
-    style: "currency",
-    currency: value.currency,
-    maximumFractionDigits: 0,
-  }).format(value.amount);
+  const amount = typeof value === "object" ? Number(value.amount) : Number(value);
+  const currency =
+    typeof value === "object" && value.currency
+      ? value.currency.toUpperCase()
+      : fallbackCurrency;
+
+  if (!Number.isFinite(amount)) {
+    return "Prix à confirmer";
+  }
+
+  try {
+    return new Intl.NumberFormat("fr-CM", {
+      style: "currency",
+      currency,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  } catch {
+    return `${amount.toLocaleString("fr-CM")} ${currency}`;
+  }
 }
 
 export function formatAvailability(availability: ProductAvailability) {

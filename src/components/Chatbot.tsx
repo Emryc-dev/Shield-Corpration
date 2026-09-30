@@ -88,7 +88,7 @@ export default function Chatbot() {
       if (!res.ok) {
         throw new Error(
           language === "fr"
-            ? "Une erreur rÃ©seau est survenue lors de la communication."
+            ? "Une erreur réseau est survenue lors de la communication."
             : "A network error occurred during communication."
         );
       }
@@ -217,7 +217,7 @@ export default function Chatbot() {
                       onClick={() => handleSendMessage(inputValue)}
                       className="inline-flex items-center gap-1 text-[11px] font-bold text-rose-800 underline hover:no-underline cursor-pointer"
                     >
-                      <RefreshCw className="w-3 h-3" /> {language === "fr" ? "RÃ©essayer" : "Retry"}
+                      <RefreshCw className="w-3 h-3" /> {language === "fr" ? "Réessayer" : "Retry"}
                     </button>
                   </div>
                 </div>

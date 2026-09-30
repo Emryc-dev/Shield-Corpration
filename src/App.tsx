@@ -31,10 +31,13 @@ import PaymentCallbackPage from "./store/pages/PaymentCallbackPage";
 import OrdersPage from "./store/pages/OrdersPage";
 import StoreAuthPage from "./store/pages/StoreAuthPage";
 import RequireStoreAuth from "./store/components/RequireStoreAuth";
+import RequireAdminAuth from "./store/components/RequireAdminAuth";
 const AdminStoreDashboardPage = React.lazy(() => import('./store/pages/admin/AdminStoreDashboardPage'));
 const AdminProductsPage = React.lazy(() => import('./store/pages/admin/AdminProductsPage'));
 const AdminOrdersPage = React.lazy(() => import('./store/pages/admin/AdminOrdersPage'));
 const AdminCategoriesPage = React.lazy(() => import('./store/pages/admin/AdminCategoriesPage'));
+const AdminCustomersPage = React.lazy(() => import('./store/pages/admin/AdminCustomersPage'));
+const AdminLoginPage = React.lazy(() => import('./store/pages/admin/AdminLoginPage'));
 
 export default function App() {
   const { language, toggleLanguage, t } = useLanguage();
@@ -227,20 +230,27 @@ export default function App() {
     );
   }
 
+  if (currentPath === "/admin/login") {
+    return <React.Suspense fallback={null}><AdminLoginPage onNavigate={navigateToPath} /></React.Suspense>;
+  }
+
   if (currentPath === "/admin/store") {
-    return <AdminStoreDashboardPage onNavigate={navigateToPath} />;
+    return <RequireAdminAuth currentPath={currentPath} onNavigate={navigateToPath}><React.Suspense fallback={null}><AdminStoreDashboardPage onNavigate={navigateToPath} /></React.Suspense></RequireAdminAuth>;
   }
 
   if (currentPath === "/admin/store/products") {
-    return <AdminProductsPage onNavigate={navigateToPath} />;
+    return <RequireAdminAuth currentPath={currentPath} onNavigate={navigateToPath}><React.Suspense fallback={null}><AdminProductsPage onNavigate={navigateToPath} /></React.Suspense></RequireAdminAuth>;
   }
 
   if (currentPath === "/admin/store/orders") {
-    return <AdminOrdersPage onNavigate={navigateToPath} />;
+    return <RequireAdminAuth currentPath={currentPath} onNavigate={navigateToPath}><React.Suspense fallback={null}><AdminOrdersPage onNavigate={navigateToPath} /></React.Suspense></RequireAdminAuth>;
   }
 
   if (currentPath === "/admin/store/categories") {
-    return <AdminCategoriesPage onNavigate={navigateToPath} />;
+    return <RequireAdminAuth currentPath={currentPath} onNavigate={navigateToPath}><React.Suspense fallback={null}><AdminCategoriesPage onNavigate={navigateToPath} /></React.Suspense></RequireAdminAuth>;
+  }
+  if (currentPath === "/admin/store/customers") {
+    return <RequireAdminAuth currentPath={currentPath} onNavigate={navigateToPath}><React.Suspense fallback={null}><AdminCustomersPage onNavigate={navigateToPath} /></React.Suspense></RequireAdminAuth>;
   }
   if (currentPath === "/store") {
     return (
@@ -556,7 +566,7 @@ export default function App() {
                         className="bg-navy hover:bg-navy-dark text-white font-semibold rounded-full px-5 sm:px-6 py-3.5 text-[12px] sm:text-[13px] shadow-lg hover:shadow-xl transition-all cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap"
                       >
                         <ShieldCheck className="w-4 h-4 text-white/90" />
-                        {language === "fr" ? "Demander un Audit de SÃ©curitÃ©" : "Request a Security Audit"}
+                        {language === "fr" ? "Demander un audit de sécurité" : "Request a Security Audit"}
                       </motion.button>
 
                       <button

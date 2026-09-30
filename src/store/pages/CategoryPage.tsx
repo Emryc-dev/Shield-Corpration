@@ -91,7 +91,7 @@ export default function CategoryPage({ slug, onNavigate }: CategoryPageProps) {
           ) : products.length === 0 ? (
             <EmptyState title="Aucun produit ne correspond à votre recherche." text="Essayez de modifier votre recherche ou vos filtres." actionLabel="Réinitialiser" onAction={() => { setSearch(""); setBrand(""); setAvailability(""); setOrdering(""); }} />
           ) : (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
               {products.map((product) => <ProductCard key={product.id} product={product} onNavigate={onNavigate} />)}
             </div>
           )}

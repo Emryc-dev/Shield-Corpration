@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Mail, Phone, Clock, Send, MessageCircle, CheckCircle } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { PointerGlow } from "./ui/pointer-glow";
+import { companyContact } from "../config/contact";
 
 export default function ContactSection() {
   const { language, t } = useLanguage();
@@ -51,9 +52,9 @@ export default function ContactSection() {
   };
 
   const handleWhatsAppClick = () => {
-    const number = "237688956607";
+    const number = companyContact.whatsapp;
     const text = language === "fr" 
-      ? "Bonjour The Shield Corporation, je souhaite entrer en contact pour un audit de sÃ©curitÃ©."
+      ? "Bonjour The Shield Corporation, je souhaite entrer en contact pour un audit de sécurité."
       : "Hello The Shield Corporation, I would like to get in touch for a security audit.";
     const url = `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank", "noopener,noreferrer");
@@ -97,10 +98,10 @@ export default function ContactSection() {
                 </div>
                 <div className="relative z-10">
                   <p className="text-slate-400 text-[11px] font-semibold uppercase tracking-wider">
-                    {language === "fr" ? "Email SÃ©curisÃ©" : "Secure Email"}
+                    {language === "fr" ? "Email sécurisé" : "Secure Email"}
                   </p>
-                  <a href="mailto:contact@theshieldcorporation.com" className="font-semibold text-navy hover:underline">
-                    contact@theshieldcorporation.com
+                  <a href={`mailto:${companyContact.email}`} className="font-semibold text-navy hover:underline">
+                    {companyContact.email}
                   </a>
                 </div>
               </div>
@@ -115,8 +116,8 @@ export default function ContactSection() {
                   <p className="text-slate-400 text-[11px] font-semibold uppercase tracking-wider">
                     {language === "fr" ? "Support IT direct" : "Direct IT Support"}
                   </p>
-                  <a href="tel:+237688956607" className="font-semibold text-navy hover:underline">
-                    +237 6 88 95 66 07
+                  <a href={`tel:${companyContact.phoneHref}`} className="font-semibold text-navy hover:underline">
+                    {companyContact.phoneDisplay}
                   </a>
                 </div>
               </div>
@@ -129,10 +130,10 @@ export default function ContactSection() {
                 </div>
                 <div className="relative z-10">
                   <p className="text-slate-400 text-[11px] font-semibold uppercase tracking-wider">
-                    {language === "fr" ? "DÃ©lai Garanti" : "Response Time"}
+                    {language === "fr" ? "Délai garanti" : "Response Time"}
                   </p>
                   <p className="font-semibold text-navy">
-                    {language === "fr" ? "RÃ©ponse sous 24h ouvrÃ©es" : "Response under 24 business hours"}
+                    {language === "fr" ? "Réponse sous 24h ouvrées" : "Response under 24 business hours"}
                   </p>
                 </div>
               </div>
@@ -187,7 +188,7 @@ export default function ContactSection() {
                       {/* Email input */}
                       <div className="space-y-1.5">
                         <label htmlFor="email-input" className="text-[12px] font-bold text-navy font-display uppercase tracking-wide">
-                          {language === "fr" ? "Adresse Email SÃ©curisÃ©e *" : "Secure Corporate Email *"}
+                          {language === "fr" ? "Adresse e-mail sécurisée *" : "Secure Corporate Email *"}
                         </label>
                         <input
                           id="email-input"
@@ -224,7 +225,7 @@ export default function ContactSection() {
                       {/* Service requested selector dropdown */}
                       <div className="space-y-1.5">
                         <label htmlFor="service-select" className="text-[12px] font-bold text-navy font-display uppercase tracking-wide">
-                          {language === "fr" ? "Service SollicitÃ©" : "Service Requested"}
+                          {language === "fr" ? "Service sollicité" : "Service Requested"}
                         </label>
                         <select
                           id="service-select"
@@ -285,11 +286,11 @@ export default function ContactSection() {
                     
                     <div className="space-y-2">
                       <h3 className="font-display text-[22px] font-bold text-navy">
-                        {language === "fr" ? "Demande reÃ§ue avec succÃ¨s" : "Request received"}
+                        {language === "fr" ? "Demande reçue avec succès" : "Request received"}
                       </h3>
                       <p className="font-sans text-[14px] text-slate-text max-w-[400px] mx-auto leading-relaxed">
                         {language === "fr" ? (
-                          <>Nous vous remercions, <strong>{formData.name}</strong>. Nos Ã©quipes analysent vos informations avec la plus grande diligence. Nous vous recontacterons Ã  l'adresse <strong>{formData.email}</strong> sous 24 heures.</>
+                          <>Nous vous remercions, <strong>{formData.name}</strong>. Nos équipes analysent vos informations avec la plus grande diligence. Nous vous recontacterons à l'adresse <strong>{formData.email}</strong> sous 24 heures.</>
                         ) : (
                           <>Thank you for reaching out, <strong>{formData.name}</strong>. Our diagnostic operators are reviewing your request. We will follow up at <strong>{formData.email}</strong> under 24 business hours.</>
                         )}

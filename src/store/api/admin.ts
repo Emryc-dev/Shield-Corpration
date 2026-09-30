@@ -10,14 +10,42 @@ export interface AdminOverview {
   lowStockCount: number;
   recentOrders: Order[];
   popularProducts: Product[];
+  bestSellers: Array<Product & { unitsSold: number; orderCount: number }>;
+  bestCustomers: AdminCustomer[];
   categoryBreakdown: Array<{ name: string; count: number }>;
+  revenueTrend: Array<{ date: string; gross: number; costs: number; net: number }>;
+  orderTrend: Array<{ date: string; paid: number; pending: number; cancelled: number }>;
+  customerTrend: Array<{ date: string; customers: number }>;
   monthlyGrossRevenue?: number;
   monthlyApiCosts?: number;
   monthlyNetRevenue?: number;
   period?: string;
 }
 
+function emptyDailyTrend() {
+  const now = new Date();
+  return Array.from({ length: 30 }, (_, index) => {
+    const date = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - 29 + index));
+    return date.toISOString().slice(0, 10);
+  });
+}
+
+export interface AdminCustomer {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone?: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt?: string;
+  orderCount: number;
+  totalSpent: number;
+  orders?: Order[];
+}
+
 function buildOverview(): AdminOverview {
+  const dates = emptyDailyTrend();
   return {
     source: 'demo',
     revenueLabel: 'Non disponible',
@@ -26,14 +54,20 @@ function buildOverview(): AdminOverview {
     lowStockCount: fallbackProducts.filter((product) => product.availability === 'limited').length,
     recentOrders: [],
     popularProducts: fallbackProducts.filter((product) => product.isFeatured).slice(0, 4),
+    bestSellers: [],
+    bestCustomers: [],
     categoryBreakdown: fallbackCategories.map((category) => ({ name: category.name, count: fallbackProducts.filter((product) => product.category.slug === category.slug).length })),
+    revenueTrend: dates.map((date) => ({ date, gross: 0, costs: 0, net: 0 })),
+    orderTrend: dates.map((date) => ({ date, paid: 0, pending: 0, cancelled: 0 })),
+    customerTrend: dates.map((date) => ({ date, customers: 0 })),
   };
 }
 
 export async function getAdminOverview(): Promise<AdminOverview> {
   try {
     const data = await apiRequest<any>('/api/admin/dashboard');
-    return { source: 'api', revenueLabel: `${Number(data.monthlyNetRevenue || 0).toLocaleString('fr-FR')} XAF`, productsCount: data.products, ordersCount: data.orders, lowStockCount: data.lowStock, recentOrders: data.recentOrders || [], popularProducts: (data.popularProducts || []).map(normalizeAdminProduct), categoryBreakdown: data.categoryBreakdown || [], monthlyGrossRevenue: data.monthlyGrossRevenue, monthlyApiCosts: data.monthlyApiCosts, monthlyNetRevenue: data.monthlyNetRevenue, period: data.period };
+    const bestSellers = (data.bestSellers || []).map((product: any) => ({ ...normalizeAdminProduct(product), unitsSold: Number(product.unitsSold || 0), orderCount: Number(product.orderCount || 0) }));
+    return { source: 'api', revenueLabel: `${Number(data.monthlyNetRevenue || 0).toLocaleString('fr-FR')} XAF`, productsCount: data.products, ordersCount: data.orders, lowStockCount: data.lowStock, recentOrders: data.recentOrders || [], popularProducts: bestSellers, bestSellers, bestCustomers: data.bestCustomers || [], categoryBreakdown: data.categoryBreakdown || [], revenueTrend: data.revenueTrend || [], orderTrend: data.orderTrend || [], customerTrend: data.customerTrend || [], monthlyGrossRevenue: data.monthlyGrossRevenue, monthlyApiCosts: data.monthlyApiCosts, monthlyNetRevenue: data.monthlyNetRevenue, period: data.period };
   }
   catch { return buildOverview(); }
 }
@@ -80,3 +114,7 @@ export interface ApiCost { id: string; provider: string; amount: string | number
 export const getApiCosts = () => apiRequest<{ items: ApiCost[] }>('/api/admin/api-costs').then((data) => data.items);
 export const createApiCost = (input: { provider: string; amount: number; description?: string; incurredAt?: string }) => apiRequest<ApiCost>('/api/admin/api-costs', { method: 'POST', body: JSON.stringify({ ...input, currency: 'XAF' }) });
 export const deleteApiCost = (id: string) => apiRequest<any>(`/api/admin/api-costs/${id}`, { method: 'DELETE' });
+export const getAdminCustomers = () => apiRequest<{ items: AdminCustomer[] }>('/api/admin/users').then((data) => data.items);
+export const getAdminCustomer = (id: string) => apiRequest<AdminCustomer>(`/api/admin/users/${id}`);
+export const setAdminCustomerStatus = (id: string, isActive: boolean) => apiRequest<AdminCustomer>(`/api/admin/users/${id}/status`, { method: 'PATCH', body: JSON.stringify({ isActive }) });
+export const deleteAdminCustomer = (id: string) => apiRequest<{ removed: boolean }>(`/api/admin/users/${id}`, { method: 'DELETE' });

@@ -20,6 +20,7 @@ import {
 import Logo from "./Logo";
 import FooterSection from "./FooterSection";
 import ServiceLanguageToggle from "./ServiceLanguageToggle";
+import { companyContact } from "../config/contact";
 
 interface SecurityAdministrationPageProps {
   onBack: () => void;
@@ -165,7 +166,7 @@ export default function SecurityAdministrationPage({
 
   const handleWhatsApp = () => {
     const message = "Bonjour The Shield Corporation, je souhaite planifier une évaluation de la sécurité IT de mon infrastructure.";
-    window.open(`https://wa.me/237688956607?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/${companyContact.whatsapp}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   const benefits = [

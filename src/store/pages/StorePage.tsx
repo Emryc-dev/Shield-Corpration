@@ -111,7 +111,7 @@ function ProductRail({
         </button>
       </div>
       {products.length === 0 && <p className="text-sm text-slate-text">Les nouveautés seront présentées ici dès leur disponibilité.</p>}
-      <div className="grid grid-cols-1 gap-4 min-[375px]:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:grid-cols-4">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} onNavigate={onNavigate} />
         ))}

@@ -198,7 +198,7 @@ export default function ProductPage({ slug, onNavigate }: ProductPageProps) {
         {related.length > 0 && (
           <section className="mt-14" aria-labelledby="related-products">
             <h2 id="related-products" className="font-display text-[32px] font-semibold tracking-tight md:text-[42px]">Vous pourriez aussi aimer</h2>
-            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-6 grid grid-cols-3 gap-2 sm:gap-4 lg:grid-cols-4">
               {related.map((item) => <ProductCard key={item.id} product={item} onNavigate={onNavigate} />)}
             </div>
           </section>

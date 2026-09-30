@@ -19,3 +19,12 @@ export async function register(input: { firstName: string; lastName: string; ema
   storeSession.set(session.accessToken, session.refreshToken);
   return session;
 }
+
+export async function logout() {
+  const refreshToken = storeSession.getRefreshToken();
+  try {
+    if (refreshToken) await apiRequest("/api/auth/logout", { method: "POST", body: JSON.stringify({ refreshToken }) });
+  } finally {
+    storeSession.clear();
+  }
+}

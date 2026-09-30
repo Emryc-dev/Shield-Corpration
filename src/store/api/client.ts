@@ -66,4 +66,5 @@ export const storeSession = {
     window.localStorage.removeItem(REFRESH_TOKEN_KEY);
   },
   hasToken() { return Boolean(window.localStorage.getItem(TOKEN_KEY)); },
+  getRefreshToken() { return window.localStorage.getItem(REFRESH_TOKEN_KEY); },
 };

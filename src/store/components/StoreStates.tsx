@@ -2,7 +2,7 @@ import { AlertCircle, PackageSearch } from "lucide-react";
 
 export function StoreSkeletonGrid({ count = 6 }: { count?: number }) {
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:grid-cols-3">
       {Array.from({ length: count }).map((_, index) => (
         <div key={index} className="h-[360px] animate-pulse rounded-[30px] border border-slate-200/60 bg-white">
           <div className="h-44 rounded-t-[30px] bg-slate-100" />
