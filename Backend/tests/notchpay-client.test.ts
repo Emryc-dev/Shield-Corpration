@@ -31,7 +31,7 @@ describe("NotchPay client", () => {
           reference: "ORDER-1",
           description: "Commande ORDER-1",
           customer: { email: "client@example.com", name: "Client Test" },
-          callback: "http://localhost:5173/store/payment/callback",
+          callback: "http://localhost:3000/store/payment/callback",
         }),
       }),
     );
