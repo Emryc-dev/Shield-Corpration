@@ -1,11 +1,17 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import {defineConfig} from 'vite';
+import {defineConfig, loadEnv} from 'vite';
 
-export default defineConfig(() => {
+export default defineConfig(({mode}) => {
+  const env = loadEnv(mode, process.cwd(), '');
+
   return {
     plugins: [react(), tailwindcss()],
+    define: {
+      // The API origin is public and may be configured on Vercel without a VITE_ prefix.
+      __PUBLIC_API_BASE_URL__: JSON.stringify(process.env.API_BASE_URL || env.API_BASE_URL || ''),
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

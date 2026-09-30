@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_DJANGO_API_BASE_URL || "";
+declare const __PUBLIC_API_BASE_URL__: string;
+
+const API_BASE_URL = __PUBLIC_API_BASE_URL__ || import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_DJANGO_API_BASE_URL || "";
 const TOKEN_KEY = "shield-store-access-token";
 const REFRESH_TOKEN_KEY = "shield-store-refresh-token";
 
