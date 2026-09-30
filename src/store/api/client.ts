@@ -6,11 +6,13 @@ const REFRESH_TOKEN_KEY = "shield-store-refresh-token";
 
 export class StoreApiError extends Error {
   status: number;
+  code?: string;
 
-  constructor(message: string, status: number) {
+  constructor(message: string, status: number, code?: string) {
     super(message);
     this.name = "StoreApiError";
     this.status = status;
+    this.code = code;
   }
 }
 
@@ -19,27 +21,26 @@ interface RequestOptions extends RequestInit {
 }
 
 function buildUrl(path: string, query?: RequestOptions["query"]) {
-  const base = API_BASE_URL.replace(/\/$/, "");
+  const base = API_BASE_URL.endsWith("/") ? API_BASE_URL.slice(0, -1) : API_BASE_URL;
   const pathname = path.startsWith("/") ? path : `/${path}`;
   const url = new URL(`${base}${pathname}`, window.location.origin);
 
   Object.entries(query || {}).forEach(([key, value]) => {
-    if (value !== undefined && value !== null && value !== "") {
-      url.searchParams.set(key, String(value));
-    }
+    if (value !== undefined && value !== null && value !== "") url.searchParams.set(key, String(value));
   });
 
-  return base ? `${url.pathname}${url.search}`.replace(pathname, `${base}${pathname}`) : `${url.pathname}${url.search}`;
+  return url.toString();
 }
 
 export async function apiRequest<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const { query, headers, ...requestOptions } = options;
   const token = typeof window !== "undefined" ? window.localStorage.getItem(TOKEN_KEY) : null;
   const isFormData = requestOptions.body instanceof FormData;
+  const hasBody = requestOptions.body !== undefined && requestOptions.body !== null;
   const response = await fetch(buildUrl(path, query), {
     credentials: "include",
     headers: {
-      ...(!isFormData ? { "Content-Type": "application/json" } : {}),
+      ...(hasBody && !isFormData ? { "Content-Type": "application/json" } : {}),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...headers,
     },
@@ -47,12 +48,15 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
   });
 
   if (!response.ok) {
-    throw new StoreApiError("Nous rencontrons un problème lors du chargement des données.", response.status);
+    const payload = await response.json().catch(() => null) as { error?: { code?: string; message?: string } } | null;
+    throw new StoreApiError(
+      payload?.error?.message || "Nous rencontrons un problème lors du chargement des données.",
+      response.status,
+      payload?.error?.code,
+    );
   }
 
-  if (response.status === 204) {
-    return undefined as T;
-  }
+  if (response.status === 204) return undefined as T;
 
   const payload = await response.json();
   return (payload && typeof payload === "object" && "data" in payload ? payload.data : payload) as T;

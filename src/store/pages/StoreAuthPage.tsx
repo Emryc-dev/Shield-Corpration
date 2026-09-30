@@ -6,6 +6,7 @@ import { ImageSlider } from "@/components/ui/image-slider";
 import { Input } from "@/components/ui/input";
 import StoreHeader from "../components/StoreHeader";
 import { login, register } from "../api/auth";
+import { StoreApiError } from "../api/client";
 
 const authImages = [
   "/store/heroes/mobile.jpg",
@@ -66,9 +67,11 @@ export default function StoreAuthPage({ onNavigate }: { onNavigate: (path: strin
     } catch (cause) {
       setError(cause instanceof TypeError
         ? "Impossible de joindre le serveur. Vérifiez votre connexion puis réessayez."
-        : mode === "login"
-          ? "Adresse e-mail ou mot de passe incorrect."
-          : "Impossible de créer ce compte. Vérifiez les informations saisies.");
+        : cause instanceof StoreApiError
+          ? cause.message
+          : mode === "login"
+            ? "Adresse e-mail ou mot de passe incorrect."
+            : "Impossible de créer ce compte. Vérifiez les informations saisies.");
     } finally {
       setBusy(false);
     }
