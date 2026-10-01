@@ -46,12 +46,12 @@ export async function createOrder(payload: CheckoutPayload) {
   const order = await apiRequest<unknown>("/api/orders", {
     method: "POST",
     body: JSON.stringify({
-      recipientName: payload.fullName,
-      recipientEmail: payload.email,
-      recipientPhone: payload.phone,
-      address: payload.address,
-      city: payload.city,
-      country: payload.country,
+      recipientName: payload.fullName.trim(),
+      recipientEmail: payload.email.trim(),
+      recipientPhone: payload.phone.trim(),
+      address: payload.address.trim(),
+      city: payload.city.trim(),
+      country: payload.country.trim(),
       shippingMethod: payload.deliveryMethod,
     }),
   });

@@ -52,8 +52,20 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError("");
-    if (!formData.fullName || !formData.email || !formData.phone || !formData.address || !formData.city) {
-      setError("Veuillez compléter les informations obligatoires.");
+    if (formData.fullName.trim().length < 2) {
+      setError("Le nom complet doit contenir au moins 2 caractères.");
+      return;
+    }
+    if (formData.phone.trim().length < 6) {
+      setError("Le numéro de téléphone doit contenir au moins 6 caractères.");
+      return;
+    }
+    if (formData.address.trim().length < 5) {
+      setError("L’adresse de livraison doit contenir au moins 5 caractères.");
+      return;
+    }
+    if (formData.city.trim().length < 2) {
+      setError("La ville doit contenir au moins 2 caractères.");
       return;
     }
 
@@ -88,11 +100,11 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
           {error && <p role="alert" className="mt-6 rounded-2xl bg-red-50 px-4 py-3 text-[13px] font-semibold text-red-700">{error}</p>}
 
           <div className="mt-8 grid gap-5 md:grid-cols-2">
-            <Field label="Nom complet *" name="fullName" value={formData.fullName} onChange={handleChange} />
+            <Field label="Nom complet *" name="fullName" value={formData.fullName} onChange={handleChange} minLength={2} />
             <Field label="Email *" name="email" type="email" value={formData.email} onChange={handleChange} />
-            <Field label="Téléphone *" name="phone" value={formData.phone} onChange={handleChange} />
-            <Field label="Ville *" name="city" value={formData.city} onChange={handleChange} />
-            <Field label="Pays" name="country" value={formData.country} onChange={handleChange} />
+            <Field label="Téléphone *" name="phone" type="tel" value={formData.phone} onChange={handleChange} minLength={6} />
+            <Field label="Ville *" name="city" value={formData.city} onChange={handleChange} minLength={2} />
+            <Field label="Pays" name="country" value={formData.country} onChange={handleChange} minLength={2} />
             <label>
               <span className="text-[12px] font-bold uppercase tracking-wide text-navy">Mode de livraison</span>
               <select name="deliveryMethod" value={formData.deliveryMethod} onChange={handleChange} className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-[14px] outline-none focus:border-[#0b7c9e]">
@@ -104,7 +116,7 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
 
           <label className="mt-5 block">
             <span className="text-[12px] font-bold uppercase tracking-wide text-navy">Adresse *</span>
-            <textarea name="address" value={formData.address} onChange={handleChange} rows={4} className="mt-2 w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-[14px] outline-none focus:border-[#0b7c9e]" />
+            <textarea required minLength={5} name="address" value={formData.address} onChange={handleChange} rows={4} className="mt-2 w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-[14px] outline-none focus:border-[#0b7c9e]" />
           </label>
           <label className="mt-5 block">
             <span className="text-[12px] font-bold uppercase tracking-wide text-navy">Mode de paiement</span>
@@ -143,11 +155,11 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
   );
 }
 
-function Field({ label, name, value, onChange, type = "text" }: { label: string; name: string; value: string; type?: string; onChange: (event: React.ChangeEvent<HTMLInputElement>) => void }) {
+function Field({ label, ...props }: React.InputHTMLAttributes<HTMLInputElement> & { label: string }) {
   return (
     <label>
       <span className="text-[12px] font-bold uppercase tracking-wide text-navy">{label}</span>
-      <input required name={name} type={type} value={value} onChange={onChange} className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-[14px] outline-none focus:border-[#0b7c9e]" />
+      <input required {...props} className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-[14px] outline-none focus:border-[#0b7c9e]" />
     </label>
   );
 }
