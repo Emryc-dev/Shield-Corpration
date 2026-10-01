@@ -4,6 +4,7 @@ import StoreHeader from "../components/StoreHeader";
 import { EmptyState } from "../components/StoreStates";
 import { createOrder } from "../api/orders";
 import { initializePayment } from "../api/payments";
+import { StoreApiError } from "../api/client";
 import { useCart } from "../context/CartContext";
 import { formatMoney } from "../utils/format";
 
@@ -68,8 +69,10 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
       window.sessionStorage.setItem("shield-store-pending-payment", payment.id);
       clearCart();
       window.location.assign(payment.authorizationUrl);
-    } catch {
-      setError("Le paiement n'a pas pu être initialisé. Réessayez sans actualiser cette page.");
+    } catch (cause) {
+      setError(cause instanceof StoreApiError
+        ? cause.message
+        : "Le paiement n'a pas pu être initialisé. Réessayez sans actualiser cette page.");
     } finally {
       setSubmitting(false);
     }

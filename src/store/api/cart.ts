@@ -28,3 +28,10 @@ export function removeServerCartItem(itemId: string) {
 export function clearServerCart() {
   return apiRequest<Cart>("/api/cart", { method: "DELETE" });
 }
+
+export async function syncServerCart(items: Array<{ productId: string; quantity: number }>) {
+  await clearServerCart();
+  for (const item of items) {
+    await addServerCartItem(item.productId, item.quantity);
+  }
+}

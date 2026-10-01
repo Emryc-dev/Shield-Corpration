@@ -1,4 +1,5 @@
 import type { CheckoutPayload, Order, OrderStatus } from "../types";
+import { syncServerCart } from "./cart";
 import { apiRequest } from "./client";
 
 export interface OrdersPagination {
@@ -41,9 +42,18 @@ function normalizeOrder(rawOrder: unknown): Order {
 }
 
 export async function createOrder(payload: CheckoutPayload) {
+  await syncServerCart(payload.cartItems);
   const order = await apiRequest<unknown>("/api/orders", {
     method: "POST",
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      recipientName: payload.fullName,
+      recipientEmail: payload.email,
+      recipientPhone: payload.phone,
+      address: payload.address,
+      city: payload.city,
+      country: payload.country,
+      shippingMethod: payload.deliveryMethod,
+    }),
   });
 
   return normalizeOrder(order);
