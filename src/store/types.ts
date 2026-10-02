@@ -141,4 +141,11 @@ export interface Customer {
   fullName: string;
   email: string;
   phone?: string;
+  firstName?: string;
+  lastName?: string;
+  address?: string;
+  city?: string;
+  country?: string;
+  role?: "CUSTOMER" | "ADMIN";
+  isActive?: boolean;
 }

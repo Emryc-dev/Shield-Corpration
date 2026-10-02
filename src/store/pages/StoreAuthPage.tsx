@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { ImageSlider } from "@/components/ui/image-slider";
 import { Input } from "@/components/ui/input";
 import StoreHeader from "../components/StoreHeader";
-import { login, register } from "../api/auth";
+import GoogleAuthButton from "../components/GoogleAuthButton";
+import { login, loginWithGoogle, register } from "../api/auth";
 import { StoreApiError } from "../api/client";
 
 const authImages = [
@@ -81,6 +82,21 @@ export default function StoreAuthPage({ onNavigate }: { onNavigate: (path: strin
     setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
   };
 
+  const handleGoogleCredential = React.useCallback(async (credential: string) => {
+    setBusy(true);
+    setError("");
+    try {
+      await loginWithGoogle(credential);
+      onNavigate(safeReturnTo);
+    } catch (cause) {
+      setError(cause instanceof StoreApiError ? cause.message : "La connexion Google a échoué. Veuillez réessayer.");
+    } finally {
+      setBusy(false);
+    }
+  }, [onNavigate, safeReturnTo]);
+
+  const handleGoogleError = React.useCallback((message: string) => setError(message), []);
+
   return (
     <div className="min-h-screen bg-bg-global text-navy">
       <StoreHeader onNavigate={onNavigate} title="Espace client" />
@@ -132,7 +148,16 @@ export default function StoreAuthPage({ onNavigate }: { onNavigate: (path: strin
                 <button type="button" role="tab" aria-selected={mode === "register"} onClick={() => selectMode("register")} className={`rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors ${mode === "register" ? "bg-white text-navy shadow-sm" : "text-slate-500 hover:text-navy"}`}>Créer un compte</button>
               </div>
 
-              <form onSubmit={submit} className="mt-7 grid gap-4">
+              <div className="mt-6">
+                <GoogleAuthButton mode={mode} disabled={busy} onCredential={handleGoogleCredential} onError={handleGoogleError} />
+              </div>
+
+              <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-slate-200" /></div>
+                <div className="relative flex justify-center text-[11px] font-semibold uppercase tracking-[0.12em]"><span className="bg-white px-3 text-slate-400">ou avec votre e-mail</span></div>
+              </div>
+
+              <form onSubmit={submit} className="grid gap-4">
                 <AnimatePresence initial={false} mode="popLayout">
                   {mode === "register" && (
                     <motion.div key="identity" initial={reduceMotion ? false : { opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={reduceMotion ? undefined : { opacity: 0, height: 0 }} transition={{ duration: reduceMotion ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }} className="grid gap-4 overflow-hidden sm:grid-cols-2">

@@ -5,6 +5,7 @@ import { EmptyState } from "../components/StoreStates";
 import { createOrder } from "../api/orders";
 import { initializePayment } from "../api/payments";
 import { StoreApiError } from "../api/client";
+import { getCurrentCustomer, updateCurrentCustomer } from "../api/auth";
 import { useCart } from "../context/CartContext";
 import { formatMoney } from "../utils/format";
 
@@ -27,11 +28,33 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
   const { items, clearCart, hasPricedItems, estimatedTotal } = useCart();
   const [formData, setFormData] = React.useState(initialForm);
   const [submitting, setSubmitting] = React.useState(false);
+  const [profileLoading, setProfileLoading] = React.useState(true);
   const [error, setError] = React.useState("");
   const pendingOrderId = React.useRef<string | null>(null);
 
   React.useEffect(() => {
     document.title = "The Shield Corporation Store | Paiement";
+    let active = true;
+    getCurrentCustomer()
+      .then((customer) => {
+        if (!active || !customer) return;
+        setFormData((current) => ({
+          ...current,
+          fullName: customer.fullName || current.fullName,
+          email: customer.email || current.email,
+          phone: customer.phone || current.phone,
+          address: customer.address || current.address,
+          city: customer.city || current.city,
+          country: customer.country || current.country,
+        }));
+      })
+      .catch(() => {
+        if (active) setError("Impossible de charger votre profil. Vous pouvez compléter les informations manuellement.");
+      })
+      .finally(() => {
+        if (active) setProfileLoading(false);
+      });
+    return () => { active = false; };
   }, []);
 
   if (items.length === 0) {
@@ -71,6 +94,15 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
 
     setSubmitting(true);
     try {
+      const nameParts = formData.fullName.trim().split(/\\s+/);
+      await updateCurrentCustomer({
+        firstName: nameParts[0],
+        lastName: nameParts.slice(1).join(" ") || nameParts[0],
+        phone: formData.phone.trim(),
+        address: formData.address.trim(),
+        city: formData.city.trim(),
+        country: formData.country.trim(),
+      });
       const orderId = pendingOrderId.current ?? (await createOrder({
         ...formData,
         cartItems: items.map(item => ({ productId: item.product.id, quantity: item.quantity })),
@@ -97,6 +129,7 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
         <form onSubmit={handleSubmit} className="rounded-[40px] border border-slate-200/60 bg-white p-6 md:p-10">
           <h1 className="font-display text-[38px] font-medium tracking-tight md:text-[54px]">Finaliser la commande</h1>
           <p className="mt-2 text-[14px] leading-relaxed text-slate-text">Le montant est vérifié par notre serveur avant la redirection vers la page sécurisée NotchPay.</p>
+          <p className="mt-3 text-[13px] leading-relaxed text-cyan-800">{profileLoading ? "Chargement de vos informations..." : "Vos informations enregistrées ont été préremplies. Complétez uniquement les champs manquants."}</p>
           {error && <p role="alert" className="mt-6 rounded-2xl bg-red-50 px-4 py-3 text-[13px] font-semibold text-red-700">{error}</p>}
 
           <div className="mt-8 grid gap-5 md:grid-cols-2">
@@ -124,7 +157,7 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
               <option value="notchpay">NotchPay, Mobile Money ou carte</option>
             </select>
           </label>
-          <button disabled={submitting} className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy px-5 py-4 text-[14px] font-semibold text-white transition-all hover:bg-navy-dark disabled:cursor-wait disabled:bg-slate-400">
+          <button disabled={submitting || profileLoading} className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy px-5 py-4 text-[14px] font-semibold text-white transition-all hover:bg-navy-dark disabled:cursor-wait disabled:bg-slate-400">
             {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
             Continuer vers le paiement
           </button>
