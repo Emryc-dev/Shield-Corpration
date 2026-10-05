@@ -10,6 +10,10 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+app.use((_req, res, next) => {
+  res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+  next();
+});
 
 // Initialize Gemini safely
 const getGeminiAI = () => {

@@ -15,6 +15,8 @@ declare global {
 }
 
 let googleScriptPromise: Promise<void> | null = null;
+let initializedClientId = "";
+let credentialListener: ((response: GoogleCredentialResponse) => void) | null = null;
 
 function loadGoogleScript() {
   if (window.google?.accounts.id) return Promise.resolve();
@@ -43,19 +45,24 @@ export default function GoogleAuthButton({ mode, disabled, onCredential, onError
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    if (!__PUBLIC_GOOGLE_CLIENT_ID__ || disabled) return;
+    if (!__PUBLIC_GOOGLE_CLIENT_ID__) return;
     let active = true;
+    const receiveCredential = (response: GoogleCredentialResponse) => {
+      if (response.credential) onCredential(response.credential);
+      else onError("Google n'a retourne aucun identifiant valide.");
+    };
+    credentialListener = receiveCredential;
     loadGoogleScript()
       .then(() => {
         if (!active || !containerRef.current || !window.google) return;
         containerRef.current.replaceChildren();
-        window.google.accounts.id.initialize({
-          client_id: __PUBLIC_GOOGLE_CLIENT_ID__,
-          callback: (response) => {
-            if (response.credential) onCredential(response.credential);
-            else onError("Google n’a retourné aucun identifiant valide.");
-          },
-        });
+        if (initializedClientId !== __PUBLIC_GOOGLE_CLIENT_ID__) {
+          window.google.accounts.id.initialize({
+            client_id: __PUBLIC_GOOGLE_CLIENT_ID__,
+            callback: (response) => credentialListener?.(response),
+          });
+          initializedClientId = __PUBLIC_GOOGLE_CLIENT_ID__;
+        }
         window.google.accounts.id.renderButton(containerRef.current, {
           type: "standard",
           theme: "outline",
@@ -68,8 +75,11 @@ export default function GoogleAuthButton({ mode, disabled, onCredential, onError
         });
       })
       .catch(() => onError("Impossible de charger la connexion Google."));
-    return () => { active = false; };
-  }, [disabled, mode, onCredential, onError]);
+    return () => {
+      active = false;
+      if (credentialListener === receiveCredential) credentialListener = null;
+    };
+  }, [mode, onCredential, onError]);
 
   if (!__PUBLIC_GOOGLE_CLIENT_ID__) return null;
   return <div ref={containerRef} className={disabled ? "pointer-events-none opacity-60" : "min-h-11 w-full overflow-hidden rounded-lg"} aria-label="Connexion avec Google" />;
