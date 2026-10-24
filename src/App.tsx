@@ -21,23 +21,8 @@ import CybersecurityConsultingPage from "./components/CybersecurityConsultingPag
 import SecureWebDevelopmentPage from "./components/SecureWebDevelopmentPage";
 import TypewriterHeroTitle from "./components/TypewriterHeroTitle";
 import { useLanguage } from "./context/LanguageContext";
-import StorePromoSection from "./store/components/StorePromoSection";
-import StorePage from "./store/pages/StorePage";
-import CategoryPage from "./store/pages/CategoryPage";
-import ProductPage from "./store/pages/ProductPage";
-import CartPage from "./store/pages/CartPage";
-import CheckoutPage from "./store/pages/CheckoutPage";
-import PaymentCallbackPage from "./store/pages/PaymentCallbackPage";
-import OrdersPage from "./store/pages/OrdersPage";
-import StoreAuthPage from "./store/pages/StoreAuthPage";
-import RequireStoreAuth from "./store/components/RequireStoreAuth";
-import RequireAdminAuth from "./store/components/RequireAdminAuth";
-const AdminStoreDashboardPage = React.lazy(() => import('./store/pages/admin/AdminStoreDashboardPage'));
-const AdminProductsPage = React.lazy(() => import('./store/pages/admin/AdminProductsPage'));
-const AdminOrdersPage = React.lazy(() => import('./store/pages/admin/AdminOrdersPage'));
-const AdminCategoriesPage = React.lazy(() => import('./store/pages/admin/AdminCategoriesPage'));
-const AdminCustomersPage = React.lazy(() => import('./store/pages/admin/AdminCustomersPage'));
-const AdminLoginPage = React.lazy(() => import('./store/pages/admin/AdminLoginPage'));
+import StorePromoSection from "./components/StorePromoSection";
+import { openStore } from "./config/store";
 
 export default function App() {
   const { language, toggleLanguage, t } = useLanguage();
@@ -230,99 +215,6 @@ export default function App() {
     );
   }
 
-  if (currentPath === "/admin/login") {
-    return <React.Suspense fallback={null}><AdminLoginPage onNavigate={navigateToPath} /></React.Suspense>;
-  }
-
-  if (currentPath === "/admin/store") {
-    return <RequireAdminAuth currentPath={currentPath} onNavigate={navigateToPath}><React.Suspense fallback={null}><AdminStoreDashboardPage onNavigate={navigateToPath} /></React.Suspense></RequireAdminAuth>;
-  }
-
-  if (currentPath === "/admin/store/products") {
-    return <RequireAdminAuth currentPath={currentPath} onNavigate={navigateToPath}><React.Suspense fallback={null}><AdminProductsPage onNavigate={navigateToPath} /></React.Suspense></RequireAdminAuth>;
-  }
-
-  if (currentPath === "/admin/store/orders") {
-    return <RequireAdminAuth currentPath={currentPath} onNavigate={navigateToPath}><React.Suspense fallback={null}><AdminOrdersPage onNavigate={navigateToPath} /></React.Suspense></RequireAdminAuth>;
-  }
-
-  if (currentPath === "/admin/store/categories") {
-    return <RequireAdminAuth currentPath={currentPath} onNavigate={navigateToPath}><React.Suspense fallback={null}><AdminCategoriesPage onNavigate={navigateToPath} /></React.Suspense></RequireAdminAuth>;
-  }
-  if (currentPath === "/admin/store/customers") {
-    return <RequireAdminAuth currentPath={currentPath} onNavigate={navigateToPath}><React.Suspense fallback={null}><AdminCustomersPage onNavigate={navigateToPath} /></React.Suspense></RequireAdminAuth>;
-  }
-  if (currentPath === "/store") {
-    return (
-      <>
-        <StorePage onNavigate={navigateToPath} />
-        <Chatbot />
-      </>
-    );
-  }
-
-  if (currentPath.startsWith("/store/category/")) {
-    return (
-      <>
-        <CategoryPage slug={currentPath.replace("/store/category/", "")} onNavigate={navigateToPath} />
-        <Chatbot />
-      </>
-    );
-  }
-
-  if (currentPath.startsWith("/store/product/")) {
-    return (
-      <>
-        <ProductPage slug={currentPath.replace("/store/product/", "")} onNavigate={navigateToPath} />
-        <Chatbot />
-      </>
-    );
-  }
-
-  if (currentPath === "/store/cart") {
-    return (
-      <>
-        <CartPage onNavigate={navigateToPath} />
-        <Chatbot />
-      </>
-    );
-  }
-
-  if (currentPath === "/store/checkout") {
-    return (
-      <RequireStoreAuth currentPath={currentPath} onNavigate={navigateToPath}>
-        <CheckoutPage onNavigate={navigateToPath} />
-        <Chatbot />
-      </RequireStoreAuth>
-    );
-  }
-
-  if (currentPath === "/store/payment/callback") {
-    return (
-      <RequireStoreAuth currentPath={currentPath} onNavigate={navigateToPath}>
-        <PaymentCallbackPage onNavigate={navigateToPath} />
-        <Chatbot />
-      </RequireStoreAuth>
-    );
-  }
-
-  if (currentPath === "/account/orders") {
-    return (
-      <RequireStoreAuth currentPath={currentPath} onNavigate={navigateToPath}>
-        <OrdersPage onNavigate={navigateToPath} />
-        <Chatbot />
-      </RequireStoreAuth>
-    );
-  }
-
-  if (currentPath === "/account/login") {
-    return (
-      <>
-        <StoreAuthPage onNavigate={navigateToPath} />
-        <Chatbot />
-      </>
-    );
-  }
   return (
     <div className="min-h-screen w-full bg-bg-global flex flex-col items-center overflow-x-hidden font-sans select-none">
       
@@ -376,7 +268,7 @@ export default function App() {
                 {t("nav.solutions")}
               </button>
               <button
-                onClick={() => navigateToPath("/store")}
+                onClick={openStore}
                 className="inline-flex items-center gap-1.5 px-3 md:px-4 py-1.5 rounded-full text-[12px] font-semibold text-slate-text hover:text-navy hover:bg-white tracking-wide transition-all cursor-pointer"
               >
                 <ShoppingBag className="w-3.5 h-3.5 text-[#0b7c9e]" />
@@ -459,7 +351,7 @@ export default function App() {
                 {t("nav.solutions")}
               </button>
               <button
-                onClick={() => navigateToPath("/store")}
+                onClick={openStore}
                 className="w-full text-left px-4 py-2 rounded-xl text-[13px] font-semibold text-slate-text hover:text-[#0b7c9e] hover:bg-slate-50 transition-all cursor-pointer"
               >
                 Store
@@ -649,7 +541,7 @@ export default function App() {
               <SolutionsSection onNavigateToSolution={navigateToService} />
 
               {/* 9. Compact Store discovery module */}
-              <StorePromoSection onNavigate={navigateToPath} />
+              <StorePromoSection />
 
               {/* 10. Value Pillars & Business Impact Stats */}
               <WhyChooseUs />

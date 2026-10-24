@@ -9,9 +9,7 @@ export default defineConfig(({mode}) => {
   return {
     plugins: [react(), tailwindcss()],
     define: {
-      // The API origin is public and may be configured on Vercel without a VITE_ prefix.
-      __PUBLIC_API_BASE_URL__: JSON.stringify(process.env.API_BASE_URL || env.API_BASE_URL || ''),
-      __PUBLIC_GOOGLE_CLIENT_ID__: JSON.stringify(process.env.GOOGLE_CLIENT_ID || env.GOOGLE_CLIENT_ID || ''),
+      __PUBLIC_STORE_URL__: JSON.stringify(process.env.STORE_URL || env.STORE_URL || env.VITE_STORE_URL || 'http://localhost:3001'),
     },
     resolve: {
       alias: {

@@ -3,16 +3,13 @@ import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { LanguageProvider } from './context/LanguageContext.tsx';
-import { CartProvider } from './store/context/CartContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <LanguageProvider>
-      <CartProvider>
-        <Suspense fallback={<div role='status' className='grid min-h-screen place-items-center bg-bg-global text-sm text-navy'>Chargement de la page...</div>}>
-          <App />
-        </Suspense>
-      </CartProvider>
+      <Suspense fallback={<div role='status' className='grid min-h-screen place-items-center bg-bg-global text-sm text-navy'>Chargement de la page...</div>}>
+        <App />
+      </Suspense>
     </LanguageProvider>
   </StrictMode>,
 );
