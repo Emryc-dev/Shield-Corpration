@@ -11,9 +11,9 @@ Backend Express et TypeScript du Store, connecté à Neon PostgreSQL avec Prisma
 5. Définir éventuellement ADMIN_EMAIL et ADMIN_PASSWORD, puis lancer "npm run seed".
 6. Démarrer avec "npm run dev".
 
-API: http://localhost:4000/api
-Swagger: http://localhost:4000/api/docs
-Santé: http://localhost:4000/api/health
+API: http://localhost:4001/api
+Swagger: http://localhost:4001/api/docs
+Santé: http://localhost:4001/api/health
 
 ## Railway
 

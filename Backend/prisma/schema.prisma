@@ -31,14 +31,30 @@ enum PaymentStatus {
   CANCELLED
   EXPIRED
 }
+enum ReviewStatus {
+  PUBLISHED
+  HIDDEN
+}
+enum InventoryMovementType {
+  RESTOCK
+  RESERVATION
+  RELEASE
+  SALE
+  ADJUSTMENT
+  RETURN
+}
 
 model User {
   id String @id @default(cuid())
   email String @unique
-  passwordHash String
+  passwordHash String?
+  googleSub String? @unique
   firstName String
   lastName String
   phone String?
+  address String?
+  city String?
+  country String?
   role UserRole @default(CUSTOMER)
   isActive Boolean @default(true)
   createdAt DateTime @default(now())
@@ -47,6 +63,9 @@ model User {
   favorites Favorite[]
   cart Cart?
   orders Order[]
+  reviews Review[]
+  inventoryMovements InventoryMovement[] @relation("InventoryActor")
+  auditLogs AuditLog[] @relation("AuditActor")
 }
 model RefreshToken {
   id String @id @default(cuid())
@@ -98,6 +117,8 @@ model Product {
   status ProductStatus @default(DRAFT)
   isFeatured Boolean @default(false)
   isNew Boolean @default(false)
+  averageRating Decimal @default(0) @db.Decimal(3, 2)
+  ratingCount Int @default(0)
   attributes Json?
   categoryId String
   createdAt DateTime @default(now())
@@ -107,6 +128,8 @@ model Product {
   favorites Favorite[]
   cartItems CartItem[]
   orderItems OrderItem[]
+  reviews Review[]
+  inventoryMovements InventoryMovement[]
   @@index([categoryId, status])
   @@index([name])
   @@index([brand])
@@ -172,6 +195,7 @@ model Order {
   user User @relation(fields: [userId], references: [id], onDelete: Restrict)
   items OrderItem[]
   payments Payment[]
+  reviews Review[]
   @@index([userId, createdAt])
   @@index([status])
 }
@@ -212,4 +236,50 @@ model WebhookEvent {
   eventType String
   payload Json
   processedAt DateTime @default(now())
+}
+
+model Review {
+  id String @id @default(cuid())
+  rating Int
+  comment String?
+  status ReviewStatus @default(PUBLISHED)
+  userId String
+  productId String
+  orderId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  order Order @relation(fields: [orderId], references: [id], onDelete: Restrict)
+  @@unique([userId, productId])
+  @@index([productId, status, createdAt])
+  @@index([orderId])
+}
+
+model InventoryMovement {
+  id String @id @default(cuid())
+  productId String
+  actorId String?
+  type InventoryMovementType
+  quantity Int
+  reason String?
+  reference String?
+  createdAt DateTime @default(now())
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  actor User? @relation("InventoryActor", fields: [actorId], references: [id], onDelete: SetNull)
+  @@index([productId, createdAt])
+  @@index([actorId])
+}
+
+model AuditLog {
+  id String @id @default(cuid())
+  actorId String?
+  action String
+  entityType String
+  entityId String?
+  metadata Json?
+  createdAt DateTime @default(now())
+  actor User? @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+  @@index([actorId, createdAt])
+  @@index([entityType, entityId])
 }

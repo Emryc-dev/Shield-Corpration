@@ -1,0 +1,6 @@
+{
+  "name": "Modern Landing Page Section",
+  "description": "A modern, high-performance landing page section using React, TypeScript, Tailwind CSS v4, and Motion.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

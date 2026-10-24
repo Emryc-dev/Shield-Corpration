@@ -16,10 +16,11 @@ export const productsService = {
       ...(query.featured === "true" ? { isFeatured: true } : {}),
       ...(query.new === "true" ? { isNew: true } : {}),
       ...(query.available === "true" ? { stock: { gt: 0 } } : {}),
+      ...(query.rating ? { averageRating: { gte: Number(query.rating) } } : {}),
       ...(search ? { OR: [{ name: { contains: search, mode: "insensitive" } }, { brand: { contains: search, mode: "insensitive" } }, { description: { contains: search, mode: "insensitive" } }] } : {}),
       ...((query.minPrice || query.maxPrice) ? { price: { ...(query.minPrice ? { gte: Number(query.minPrice) } : {}), ...(query.maxPrice ? { lte: Number(query.maxPrice) } : {}) } } : {})
     };
-    const orderBy = query.sort === "price_asc" ? { price: "asc" as const } : query.sort === "price_desc" ? { price: "desc" as const } : { createdAt: "desc" as const };
+    const orderBy = query.sort === "price_asc" ? { price: "asc" as const } : query.sort === "price_desc" ? { price: "desc" as const } : query.sort === "rating_desc" ? { averageRating: "desc" as const } : { createdAt: "desc" as const };
     const [items, total] = await prisma.$transaction([prisma.product.findMany({ where, include, orderBy, skip, take: limit }), prisma.product.count({ where })]);
     return { items, pagination: { page, limit, total, pages: Math.ceil(total / limit) } };
   },
