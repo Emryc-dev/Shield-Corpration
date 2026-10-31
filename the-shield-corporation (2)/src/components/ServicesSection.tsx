@@ -20,7 +20,7 @@ export default function ServicesSection({ onNavigateToService }: ServicesSection
       <div className="max-w-[1400px] mx-auto space-y-12 md:space-y-16">
         
         {/* Section Header */}
-        <div className="text-center max-w-[600px] mx-auto space-y-4">
+        <div className="text-center max-w-[700px] mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 bg-navy/5 border border-navy/10 px-3.5 py-1.5 rounded-full text-navy text-[12px] font-semibold tracking-wide uppercase">
             {t("services.badge")}
           </div>

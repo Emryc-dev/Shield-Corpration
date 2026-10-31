@@ -1,4 +1,4 @@
-import * as React from "react";
+﻿import * as React from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Check, Eye, EyeOff, Loader2, LockKeyhole, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -121,7 +121,7 @@ export default function StoreAuthPage({ onNavigate }: { onNavigate: (path: strin
                 Retrouvez vos achats et suivez chaque étape de leur traitement en toute simplicité.
               </p>
               <ul className="mt-7 grid gap-3 text-sm text-white/90">
-                {["Commandes liées à votre compte", "Paiements et suivi centralisés", "Accès sécurisé à votre historique"].map((item) => (
+                {["Suivez l'état de vos commandes", "Retrouvez vos achats et vos favoris", "Commandez plus vite avec vos informations enregistrées"].map((item) => (
                   <li key={item} className="flex items-center gap-3">
                     <span className="grid h-6 w-6 place-items-center rounded-full bg-cyan-300/15"><Check className="h-3.5 w-3.5 text-cyan-100" /></span>
                     {item}

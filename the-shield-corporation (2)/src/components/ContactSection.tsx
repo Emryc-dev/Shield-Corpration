@@ -28,7 +28,11 @@ export default function ContactSection() {
         "cloud-comp": "Cloud Computing",
         "sec-host": "Secure Hosting",
         "cyber-cons": "Cybersecurity Consulting",
-        "sec-dev": "Secure Web Development"
+        "sec-dev": "Secure Web Development",
+        "pack-essentiel": "Pack Essentiel",
+        "pack-business": "Pack Business",
+        "pack-premium": "Pack Premium",
+        "pack-sur-mesure": "Pack Sur mesure"
       };
       const mapped = map[id];
       if (mapped) {
@@ -235,14 +239,22 @@ export default function ContactSection() {
                           className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl px-4 py-3.5 text-[14px] text-navy focus:outline-none focus:ring-2 focus:ring-navy focus:bg-white transition-all font-sans"
                         >
                           <option value="">{language === "fr" ? "Choisir un service..." : "Choose service..."}</option>
-                          <option value="Network Administration">{t("services.netAdmin.title")}</option>
-                          <option value="Security Administration">{t("services.secAdmin.title")}</option>
-                          <option value="Pentesting">{t("services.pentest.title")}</option>
-                          <option value="Web Application Testing">{t("services.webTest.title")}</option>
-                          <option value="Cloud Computing">{t("services.cloud.title")}</option>
-                          <option value="Secure Hosting">{t("services.host.title")}</option>
-                          <option value="Cybersecurity Consulting">{t("services.consulting.title")}</option>
-                          <option value="Secure Web Development">{t("services.webDev.title")}</option>
+                          <optgroup label="Packs">
+                            <option value="Pack Essentiel">{language === "fr" ? "Pack Essentiel" : "Essential Pack"}</option>
+                            <option value="Pack Business">{language === "fr" ? "Pack Business" : "Business Pack"}</option>
+                            <option value="Pack Premium">{language === "fr" ? "Pack Premium" : "Premium Pack"}</option>
+                            <option value="Pack Sur mesure">{language === "fr" ? "Pack Sur mesure" : "Custom Pack"}</option>
+                          </optgroup>
+                          <optgroup label="Services">
+                            <option value="Network Administration">{t("services.netAdmin.title")}</option>
+                            <option value="Security Administration">{t("services.secAdmin.title")}</option>
+                            <option value="Pentesting">{t("services.pentest.title")}</option>
+                            <option value="Web Application Testing">{t("services.webTest.title")}</option>
+                            <option value="Cloud Computing">{t("services.cloud.title")}</option>
+                            <option value="Secure Hosting">{t("services.host.title")}</option>
+                            <option value="Cybersecurity Consulting">{t("services.consulting.title")}</option>
+                            <option value="Secure Web Development">{t("services.webDev.title")}</option>
+                          </optgroup>
                         </select>
                       </div>
 

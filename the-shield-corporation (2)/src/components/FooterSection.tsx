@@ -31,12 +31,12 @@ export default function FooterSection() {
 
           {/* Quick links columns */}
           <div className="md:col-span-3 space-y-4 font-sans text-[13px]">
-            <h4 className="font-display font-semibold text-white/90 text-[14px]">Solutions</h4>
+            <h4 className="font-display font-semibold text-white/90 text-[14px]">Packs</h4>
             <ul className="space-y-2.5">
-              <li><a href="#solutions" className="text-white/60 hover:text-white transition-colors">ShieldDefend™</a></li>
-              <li><a href="#solutions" className="text-white/60 hover:text-white transition-colors">CloudFortress</a></li>
-              <li><a href="#solutions" className="text-white/60 hover:text-white transition-colors">CyberSOC 24/7</a></li>
-              <li><a href="#solutions" className="text-white/60 hover:text-white transition-colors">SecureWeb Build</a></li>
+              <li><a href="#packs" className="text-white/60 hover:text-white transition-colors">{language === "fr" ? "Pack Essentiel" : "Essential Pack"}</a></li>
+              <li><a href="#packs" className="text-white/60 hover:text-white transition-colors">{language === "fr" ? "Pack Business" : "Business Pack"}</a></li>
+              <li><a href="#packs" className="text-white/60 hover:text-white transition-colors">{language === "fr" ? "Pack Premium" : "Premium Pack"}</a></li>
+              <li><a href="#packs" className="text-white/60 hover:text-white transition-colors">{language === "fr" ? "Pack Sur mesure" : "Custom Pack"}</a></li>
             </ul>
           </div>
 

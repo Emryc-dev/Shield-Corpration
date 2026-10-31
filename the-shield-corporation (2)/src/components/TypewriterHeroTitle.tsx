@@ -5,8 +5,8 @@ interface TypewriterHeroTitleProps {
 }
 
 const titles = {
-  fr: ["Construisez un environnement", "numérique fiable"],
-  en: ["Build a reliable", "digital environment"],
+  fr: ["Sécurisez votre entreprise", "avant qu'on ne l'attaque."],
+  en: ["Your systems protected.", "Your business at ease."],
 };
 
 export default function TypewriterHeroTitle({ language }: TypewriterHeroTitleProps) {

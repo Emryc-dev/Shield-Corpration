@@ -1,4 +1,4 @@
-import type { Category, Product } from "../types";
+﻿import type { Category, Product } from "../types";
 
 export const fallbackCategories: Category[] = [
   {
@@ -52,10 +52,10 @@ export const fallbackProducts: Product[] = [
     id: "prod-smartphone-pro",
     name: "Smartphone Pro Series",
     slug: "smartphone-pro-series",
-    brand: "Sélection Shield",
+    brand: "The Shield Store",
     category: categoryBySlug.smartphones,
     shortDescription: "Un smartphone polyvalent pour les usages quotidiens et professionnels.",
-    description: "Produit de démonstration destiné à valider l'interface Store. Les prix, stocks, garanties et variantes seront fournis par le backend Django.",
+    description: "Produit sélectionné pour illustrer le catalogue avec des informations de démonstration.",
     availability: "limited",
     images: [
       {
@@ -76,10 +76,10 @@ export const fallbackProducts: Product[] = [
     id: "prod-headset-studio",
     name: "Casque Audio Studio",
     slug: "casque-audio-studio",
-    brand: "Sélection Shield",
+    brand: "The Shield Store",
     category: categoryBySlug.audio,
     shortDescription: "Casque confortable pour appels, concentration et écoute prolongée.",
-    description: "Produit de démonstration destiné à valider l'interface Store. Les informations commerciales finales seront synchronisées depuis Django.",
+    description: "Produit sélectionné pour illustrer le catalogue avec des informations de démonstration.",
     availability: "in_stock",
     images: [
       {
@@ -100,10 +100,10 @@ export const fallbackProducts: Product[] = [
     id: "prod-earbuds",
     name: "Écouteurs True Wireless",
     slug: "ecouteurs-true-wireless",
-    brand: "Sélection Shield",
+    brand: "The Shield Store",
     category: categoryBySlug.audio,
     shortDescription: "Écouteurs compacts pour appels, déplacements et écoute mobile.",
-    description: "Produit de démonstration destiné à valider le parcours produit. Le backend Django deviendra la source de vérité.",
+    description: "Produit sélectionné pour illustrer le catalogue avec des informations de démonstration.",
     availability: "in_stock",
     images: [
       {
@@ -124,10 +124,10 @@ export const fallbackProducts: Product[] = [
     id: "prod-speaker",
     name: "Mini Enceinte Bluetooth",
     slug: "mini-enceinte-bluetooth",
-    brand: "Sélection Shield",
+    brand: "The Shield Store",
     category: categoryBySlug.audio,
     shortDescription: "Une enceinte compacte pour bureau, maison ou déplacements.",
-    description: "Produit de démonstration. Les disponibilités, prix et options seront fournis par Django.",
+    description: "Produit sélectionné pour illustrer le catalogue avec des informations de démonstration.",
     availability: "preorder",
     images: [
       {
@@ -148,10 +148,10 @@ export const fallbackProducts: Product[] = [
     id: "prod-laptop",
     name: "Laptop Business",
     slug: "laptop-business",
-    brand: "Sélection Shield",
+    brand: "The Shield Store",
     category: categoryBySlug.ordinateurs,
     shortDescription: "Ordinateur portable adapté au travail, aux études et à la productivité.",
-    description: "Produit de démonstration. Les configurations seront gérées côté Django.",
+    description: "Produit sélectionné pour illustrer le catalogue avec des informations de démonstration.",
     availability: "limited",
     images: [
       {
@@ -171,10 +171,10 @@ export const fallbackProducts: Product[] = [
     id: "prod-power-bank",
     name: "Power Bank Compact",
     slug: "power-bank-compact",
-    brand: "Sélection Shield",
+    brand: "The Shield Store",
     category: categoryBySlug.mobilite,
     shortDescription: "Batterie externe compacte pour garder vos appareils chargés.",
-    description: "Produit de démonstration. Les capacités disponibles seront fournies par l'API Django.",
+    description: "Produit sélectionné pour illustrer le catalogue avec des informations de démonstration.",
     availability: "in_stock",
     images: [
       {
@@ -194,10 +194,10 @@ export const fallbackProducts: Product[] = [
     id: "prod-cable",
     name: "Câble USB-C Renforcé",
     slug: "cable-usb-c-renforce",
-    brand: "Sélection Shield",
+    brand: "The Shield Store",
     category: categoryBySlug.accessoires,
     shortDescription: "Câble robuste pour recharge et transfert de données.",
-    description: "Produit de démonstration. Les longueurs et compatibilités seront pilotées par Django.",
+    description: "Produit sélectionné pour illustrer le catalogue avec des informations de démonstration.",
     availability: "in_stock",
     images: [
       {
@@ -216,10 +216,10 @@ export const fallbackProducts: Product[] = [
     id: "prod-webcam",
     name: "Webcam HD",
     slug: "webcam-hd",
-    brand: "Sélection Shield",
+    brand: "The Shield Store",
     category: categoryBySlug.connectivite,
     shortDescription: "Webcam pour réunions, support client et collaboration à distance.",
-    description: "Produit de démonstration. Les fiches techniques complètes seront synchronisées avec Django.",
+    description: "Produit sélectionné pour illustrer le catalogue avec des informations de démonstration.",
     availability: "out_of_stock",
     images: [
       {
@@ -238,10 +238,10 @@ export const fallbackProducts: Product[] = [
     id: "prod-ssd",
     name: "Stockage Externe SSD",
     slug: "stockage-externe-ssd",
-    brand: "Sélection Shield",
+    brand: "The Shield Store",
     category: categoryBySlug.accessoires,
     shortDescription: "Stockage portable pour sauvegardes, documents et projets.",
-    description: "Produit de démonstration. Les capacités et prix seront revalidés côté serveur.",
+    description: "Produit sélectionné pour illustrer le catalogue avec des informations de démonstration.",
     availability: "limited",
     images: [
       {

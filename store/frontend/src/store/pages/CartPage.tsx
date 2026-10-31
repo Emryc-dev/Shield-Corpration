@@ -1,4 +1,4 @@
-import { ArrowRight, Minus, Plus, Trash2 } from "lucide-react";
+﻿import { ArrowRight, Minus, Plus, Trash2 } from "lucide-react";
 import StoreHeader from "../components/StoreHeader";
 import { EmptyState } from "../components/StoreStates";
 import { useCart } from "../context/CartContext";
@@ -33,7 +33,7 @@ export default function CartPage({ onNavigate }: CartPageProps) {
               <p className="mt-2 text-[14px] text-slate-text">Modifiez les quantités avant de passer commande.</p>
             </div>
             <button onClick={clearCart} className="rounded-full border border-slate-200 px-4 py-2 text-[12px] font-semibold text-slate-text transition-colors hover:text-navy">
-              Vider
+              Vider le panier
             </button>
           </div>
 
@@ -67,10 +67,10 @@ export default function CartPage({ onNavigate }: CartPageProps) {
         <aside className="h-fit rounded-[36px] border border-slate-200/60 bg-white p-6 shadow-[0_30px_90px_-65px_rgba(10,27,51,0.45)]">
           <h2 className="font-display text-[26px] font-semibold text-navy">Récapitulatif</h2>
           <div className="mt-5 space-y-3 text-[14px] text-slate-text">
-            <div className="flex justify-between"><span>Sous-total</span><strong className="text-navy">{hasPricedItems ? formatMoney({ amount: estimatedTotal, currency: "XAF" }) : "À confirmer"}</strong></div>
-            <div className="flex justify-between"><span>Livraison</span><strong className="text-navy">À confirmer</strong></div>
+            <div className="flex justify-between"><span>Sous-total</span><strong className="text-navy">{hasPricedItems ? formatMoney({ amount: estimatedTotal, currency: "XAF" }) : "Calculée à l'étape suivante"}</strong></div>
+            <div className="flex justify-between"><span>Livraison</span><strong className="text-navy">Calculée à l'étape suivante</strong></div>
             <div className="border-t border-slate-100 pt-3 text-[12px] leading-relaxed">
-              Les montants finaux seront revalidés par le backend Django au moment de la commande.
+              Votre total final s'affiche avant le paiement.
             </div>
           </div>
           <button onClick={() => onNavigate("/store/checkout")} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy px-5 py-3.5 text-[13px] font-semibold text-white transition-all hover:bg-navy-dark">

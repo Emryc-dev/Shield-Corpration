@@ -1,4 +1,4 @@
-import type React from "react";
+﻿import type React from "react";
 import { ArrowUpRight, Headphones, Mail, ShieldCheck, ShoppingBag } from "lucide-react";
 
 declare const __PUBLIC_CORPORATE_URL__: string;
@@ -16,7 +16,7 @@ export default function StoreFooter({ onNavigate }: { onNavigate: (path: string)
             <span><strong className="block font-display text-lg">The Shield Store</strong><span className="text-xs text-slate-500">Technologie et accessoires</span></span>
           </button>
           <p className="mt-5 max-w-sm text-sm leading-6 text-slate-600">Une sélection claire d’équipements pour communiquer, travailler et rester mobile au quotidien.</p>
-          <a href={corporateUrl} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#0b7c9e] hover:text-navy">Découvrir The Shield Corporation <ArrowUpRight className="h-4 w-4" /></a>
+          <a href={corporateUrl} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#0b7c9e] hover:text-navy">Découvrir nos services IT & cybersécurité <ArrowUpRight className="h-4 w-4" /></a>
         </div>
         <FooterGroup title="Explorer">
           <FooterButton onClick={() => onNavigate("/")}>Tous les produits</FooterButton>
@@ -32,11 +32,11 @@ export default function StoreFooter({ onNavigate }: { onNavigate: (path: string)
         <div>
           <h2 className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">Besoin d’aide ?</h2>
           <a href="mailto:contact@theshieldcorporation.com" className="mt-4 flex items-start gap-3 text-sm font-semibold hover:text-[#0b7c9e]"><Mail className="mt-0.5 h-4 w-4 shrink-0" />contact@theshieldcorporation.com</a>
-          <div className="mt-4 flex items-start gap-3 text-sm text-slate-600"><Headphones className="mt-0.5 h-4 w-4 shrink-0 text-[#0b7c9e]" /><span>Conseil avant achat et accompagnement client.</span></div>
+          <div className="mt-4 flex items-start gap-3 text-sm text-slate-600"><Headphones className="mt-0.5 h-4 w-4 shrink-0 text-[#0b7c9e]" /><span>Une question avant d'acheter ? Écrivez-nous, nous répondons sous [délai].</span></div>
           <div className="mt-4 flex items-center gap-3 text-sm text-slate-600"><ShieldCheck className="h-4 w-4 shrink-0 text-[#0b7c9e]" />Paiements traités de manière sécurisée.</div>
         </div>
       </div>
-      <div className="border-t border-slate-200/80"><div className="mx-auto flex max-w-[1400px] flex-col gap-2 px-5 py-5 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between md:px-8"><p>© {year} The Shield Corporation Store.</p><p>Les prix et disponibilités sont confirmés au moment de la commande.</p></div></div>
+      <div className="border-t border-slate-200/80"><div className="mx-auto flex max-w-[1400px] flex-col gap-2 px-5 py-5 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between md:px-8"><p>© {year} The Shield Store.</p><p>Prix en FCFA. Disponibilité confirmée à la commande.</p></div></div>
     </footer>
   );
 }

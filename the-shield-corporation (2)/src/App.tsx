@@ -5,7 +5,7 @@ import Logo from "./components/Logo";
 import MarqueeScroller from "./components/MarqueeScroller";
 import AboutSection from "./components/AboutSection";
 import ServicesSection from "./components/ServicesSection";
-import SolutionsSection from "./components/SolutionsSection";
+import PacksSection from "./components/PacksSection";
 import WhyChooseUs from "./components/WhyChooseUs";
 import TestimonialsSection from "./components/TestimonialsSection";
 import ContactSection from "./components/ContactSection";
@@ -262,17 +262,17 @@ export default function App() {
                 {t("nav.services")}
               </button>
               <button 
-                onClick={() => scrollToSection("solutions")}
+                onClick={() => scrollToSection("packs")}
                 className="px-3 md:px-4 py-1.5 rounded-full text-[12px] font-semibold text-slate-text hover:text-navy hover:bg-white tracking-wide transition-all cursor-pointer"
               >
-                {t("nav.solutions")}
+                {t("nav.packs")}
               </button>
               <button
                 onClick={openStore}
                 className="inline-flex items-center gap-1.5 px-3 md:px-4 py-1.5 rounded-full text-[12px] font-semibold text-slate-text hover:text-navy hover:bg-white tracking-wide transition-all cursor-pointer"
               >
                 <ShoppingBag className="w-3.5 h-3.5 text-[#0b7c9e]" />
-                Store
+                {t("nav.store")}
               </button>
               <button 
                 onClick={() => scrollToSection("why-choose-us")}
@@ -343,12 +343,12 @@ export default function App() {
               </button>
               <button 
                 onClick={() => {
-                  scrollToSection("solutions");
+                  scrollToSection("packs");
                   setIsMobileMenuOpen(false);
                 }}
                 className="w-full text-left px-4 py-2 rounded-xl text-[13px] font-semibold text-slate-text hover:text-[#0b7c9e] hover:bg-slate-50 transition-all cursor-pointer"
               >
-                {t("nav.solutions")}
+                {t("nav.packs")}
               </button>
               <button
                 onClick={openStore}
@@ -454,16 +454,17 @@ export default function App() {
                         whileTap={{ scale: 0.97 }}
                         id="contact-button"
                         onClick={() => scrollToSection("contact")}
-                        aria-label="Request a custom security audit"
+                        aria-label={t("hero.btnAudit")}
                         className="bg-navy hover:bg-navy-dark text-white font-semibold rounded-full px-5 sm:px-6 py-3.5 text-[12px] sm:text-[13px] shadow-lg hover:shadow-xl transition-all cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap"
                       >
                         <ShieldCheck className="w-4 h-4 text-white/90" />
-                        {language === "fr" ? "Demander un audit de sécurité" : "Request a Security Audit"}
+                        {t("hero.btnAudit")}
                       </motion.button>
 
                       <button
-                        onClick={() => scrollToSection("solutions")}
+                        onClick={() => scrollToSection("services")}
                         className="hidden sm:inline-flex text-[13px] font-bold text-slate-text hover:text-[#0b7c9e] py-3 px-4 transition-colors cursor-pointer"
+                        aria-label={t("hero.btnExplore")}
                       >
                         {t("hero.btnExplore")} &rarr;
                       </button>
@@ -490,7 +491,7 @@ export default function App() {
                       <Logo onlyIcon={true} iconSize={26} />
                     </div>
 
-                    {/* Standard navigation buttons tailored to Services and Solutions */}
+                    {/* Standard navigation buttons tailored to Services and Packs */}
                     <div className="flex min-w-0 items-center gap-0 sm:gap-1.5 px-0.5 sm:px-1 md:px-2">
                       <button 
                         id="nav-services-btn"
@@ -501,12 +502,12 @@ export default function App() {
                         {t("nav.services")}
                       </button>
                       <button 
-                        id="nav-solutions-btn"
-                        onClick={() => scrollToSection("solutions")}
-                        aria-label="Scroll to Solutions Platforms"
+                        id="nav-packs-btn"
+                        onClick={() => scrollToSection("packs")}
+                        aria-label="Scroll to Packs"
                         className="whitespace-nowrap px-2 sm:px-3 py-1.5 rounded-full text-[10.5px] sm:text-[12px] font-semibold text-slate-text hover:text-navy focus-visible:ring-2 focus-visible:ring-navy focus-visible:outline-none transition-colors cursor-pointer"
                       >
-                        {t("nav.solutions")}
+                        {t("nav.packs")}
                       </button>
                     </div>
 
@@ -537,17 +538,17 @@ export default function App() {
               {/* 7. Services Catalog Section */}
               <ServicesSection onNavigateToService={navigateToService} />
 
-              {/* 8. Enterprise Solutions Section */}
-              <SolutionsSection onNavigateToSolution={navigateToService} />
+              {/* 8. Packs Section */}
+              <PacksSection onNavigateToPack={navigateToService} />
 
-              {/* 9. Compact Store discovery module */}
-              <StorePromoSection />
-
-              {/* 10. Value Pillars & Business Impact Stats */}
+              {/* 9. Value Pillars & Business Impact Stats */}
               <WhyChooseUs />
 
-              {/* 11. Client Testimonials Section */}
+              {/* 10. Client Testimonials Section */}
               <TestimonialsSection />
+
+              {/* 11. Compact Store discovery module */}
+              <StorePromoSection />
 
               {/* 12. Secure Contact Dashboard Section */}
               <ContactSection />

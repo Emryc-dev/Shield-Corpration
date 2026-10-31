@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { CheckCircle, Loader2, XCircle } from "lucide-react";
 import StoreHeader from "../components/StoreHeader";
 import { verifyPayment, type PaymentStatus } from "../api/payments";
@@ -13,7 +13,7 @@ export default function PaymentCallbackPage({ onNavigate }: PaymentCallbackPageP
   const [status, setStatus] = React.useState<PaymentStatus | "VERIFYING" | "UNKNOWN">("VERIFYING");
 
   React.useEffect(() => {
-    document.title = "Vérification du paiement | The Shield Corporation Store";
+    document.title = "Vérification du paiement | The Shield Store";
     const paymentId = window.sessionStorage.getItem(PAYMENT_ID_KEY);
     if (!paymentId) {
       setStatus("UNKNOWN");
@@ -43,8 +43,8 @@ export default function PaymentCallbackPage({ onNavigate }: PaymentCallbackPageP
             {pending
               ? "Nous vérifions la transaction directement auprès de NotchPay. Cette opération peut prendre quelques instants."
               : successful
-                ? "Votre commande a bien été payée et sera prise en charge par notre équipe."
-                : "Nous n'avons pas pu confirmer ce paiement. Aucun succès n'a été enregistré pour cette commande."}
+                ? "Merci ! Votre commande est payée et notre équipe la prépare."
+                : "Nous n'avons pas pu valider ce paiement et aucune somme n'est enregistrée comme payée. Si vous avez été débité, écrivez-nous avec votre numéro de commande."}
           </p>
           <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
             <button onClick={() => onNavigate("/account/orders")} className="rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white">Voir mes commandes</button>

@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+﻿import { motion } from "motion/react";
 import { ArrowUpRight, Heart, ShoppingCart } from "lucide-react";
 import { useFavorite } from '../utils/favorites';
 import type { Product } from "../types";
@@ -17,7 +17,7 @@ export default function ProductCard({ product, onNavigate }: ProductCardProps) {
   const { favorite, toggle, busy } = useFavorite(product.id, () => onNavigate(`/login?returnTo=${encodeURIComponent(`/product/${product.slug}`)}`));
   const available = canAddToCart(product.availability);
   const discount = product.price && product.oldPrice && product.oldPrice.amount > product.price.amount ? Math.round((1 - product.price.amount / product.oldPrice.amount) * 100) : 0;
-  const badge = discount ? { label: `-${discount}%`, className: "bg-red-500 text-white" } : product.isNew ? { label: "Nouveau", className: "bg-[#0b7c9e] text-white" } : product.isPopular ? { label: "Populaire", className: "bg-amber-50 text-amber-800" } : product.isFeatured ? { label: "Sélection", className: "bg-navy text-white" } : undefined;
+  const badge = discount ? { label: `-${discount}%`, className: "bg-red-500 text-white" } : product.isNew ? { label: "Nouveau", className: "bg-[#0b7c9e] text-white" } : product.isPopular ? { label: "Populaire", className: "bg-amber-50 text-amber-800" } : product.isFeatured ? { label: "Coup de cœur", className: "bg-navy text-white" } : undefined;
 
   return (
     <motion.article

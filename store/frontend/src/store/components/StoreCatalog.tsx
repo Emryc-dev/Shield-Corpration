@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { SlidersHorizontal } from 'lucide-react';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
@@ -66,13 +66,13 @@ export default function StoreCatalog({ categories, products, loading = false, er
     <div className='mx-auto max-w-[1400px]'>
       <StoreSearchBar value={search} onChange={(value) => { setSearch(value); setPage(1); }} />
       <section aria-labelledby='store-categories-title' className='mb-10'>
-        <h2 id='store-categories-title' className='mb-4 font-display text-xl font-semibold text-navy'>Parcourir les catégories</h2>
+        <h2 id='store-categories-title' className='mb-4 font-display text-xl font-semibold text-navy'>Choisissez une catégorie</h2>
         <div className='grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6'>{categories.map((category) => <CategoryCard key={category.id} category={category} active={filters.categories.includes(category.slug)} onClick={() => changeFilters({ ...filters, categories: filters.categories.includes(category.slug) ? filters.categories.filter((slug) => slug !== category.slug) : [...filters.categories, category.slug] })} />)}</div>
         {!loading && categories.length === 0 && <p className='text-sm text-slate-text'>Les catégories seront disponibles avec le catalogue.</p>}
       </section>
       <section id='store-catalog' className='scroll-mt-28' aria-labelledby='store-catalog-title'>
         <div className='mb-6 flex flex-wrap items-end justify-between gap-4'>
-          <div><h2 id='store-catalog-title' className='font-display text-2xl font-semibold text-navy md:text-3xl'>Le catalogue</h2><p role='status' className='mt-2 text-sm text-slate-text'>{loading ? 'Chargement du catalogue...' : `${filteredProducts.length} produit${filteredProducts.length > 1 ? 's' : ''}`}</p></div>
+          <div><h2 id='store-catalog-title' className='font-display text-2xl font-semibold text-navy md:text-3xl'>Tous nos produits</h2><p role='status' className='mt-2 text-sm text-slate-text'>{loading ? 'Chargement du catalogue...' : `${filteredProducts.length} produit${filteredProducts.length > 1 ? 's' : ''}`}</p></div>
           <div className='flex flex-wrap items-center gap-3'>
             <Sheet open={filtersOpen} onOpenChange={setFiltersOpen}>
               <SheetTrigger asChild><Button variant='outline' className='lg:hidden'><SlidersHorizontal data-icon='inline-start' />Filtrer{filterCount > 0 && ` (${filterCount})`}</Button></SheetTrigger>
@@ -87,7 +87,7 @@ export default function StoreCatalog({ categories, products, loading = false, er
         <div className='grid items-start gap-7 lg:grid-cols-[210px_minmax(0,1fr)] xl:grid-cols-[230px_minmax(0,1fr)]'>
           <aside aria-label='Filtres du catalogue' className='sticky top-28 hidden rounded-2xl border border-slate-200 bg-white p-5 lg:block'><ProductFilters {...filterProps} /></aside>
           <div className='min-w-0'>
-            {loading ? <StoreSkeletonGrid /> : error ? <EmptyState title='Impossible de charger les produits.' text={error} actionLabel='Réessayer' onAction={onRetry ?? reset} /> : !filteredProducts.length ? <EmptyState title={products.length ? 'Aucun produit ne correspond à votre recherche.' : 'Cette sélection ne contient encore aucun produit.'} text='Explorez les catégories ou modifiez votre recherche.' actionLabel={products.length ? 'Voir tous les produits' : 'Demander conseil'} onAction={products.length ? reset : () => onNavigate('/#contact')} /> : <ProductGrid products={visibleProducts} onNavigate={onNavigate} />}
+            {loading ? <StoreSkeletonGrid /> : error ? <EmptyState title='Impossible de charger les produits.' text={error} actionLabel='Réessayer' onAction={onRetry ?? reset} /> : !filteredProducts.length ? <EmptyState title={products.length ? 'Aucun produit ne correspond à votre recherche.' : 'Cette sélection ne contient encore aucun produit.'} text='Essayez un autre mot ou parcourez les catégories.' actionLabel={products.length ? 'Voir tous les produits' : 'Parler à un conseiller'} onAction={products.length ? reset : () => onNavigate('/#contact')} /> : <ProductGrid products={visibleProducts} onNavigate={onNavigate} />}
             {pages > 1 && <nav aria-label='Pagination du catalogue' className='mt-7 flex items-center justify-center gap-4'><Button variant='outline' disabled={currentPage === 1} onClick={() => setPage(currentPage - 1)}>Précédent</Button><span className='text-sm text-slate-text'>{currentPage} / {pages}</span><Button variant='outline' disabled={currentPage === pages} onClick={() => setPage(currentPage + 1)}>Suivant</Button></nav>}
           </div>
         </div>

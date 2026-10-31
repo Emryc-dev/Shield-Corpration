@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Loader2 } from "lucide-react";
 import StoreHeader from "../components/StoreHeader";
 import { EmptyState } from "../components/StoreStates";
@@ -116,7 +116,7 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
     } catch (cause) {
       setError(cause instanceof StoreApiError
         ? cause.message
-        : "Le paiement n'a pas pu être initialisé. Réessayez sans actualiser cette page.");
+        : "Le paiement n'a pas pu démarrer. Réessayez sans quitter cette page : votre commande est conservée.");
     } finally {
       setSubmitting(false);
     }
@@ -128,7 +128,7 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
       <main className="mx-auto grid max-w-[1400px] gap-8 px-4 pb-16 pt-8 md:px-8 lg:grid-cols-[1fr_390px]">
         <form onSubmit={handleSubmit} className="rounded-[40px] border border-slate-200/60 bg-white p-6 md:p-10">
           <h1 className="font-display text-[38px] font-medium tracking-tight md:text-[54px]">Finaliser la commande</h1>
-          <p className="mt-2 text-[14px] leading-relaxed text-slate-text">Le montant est vérifié par notre serveur avant la redirection vers la page sécurisée NotchPay.</p>
+          <p className="mt-2 text-[14px] leading-relaxed text-slate-text">Vous serez redirigé vers NotchPay pour payer par Mobile Money ou par carte, en toute sécurité.</p>
           <p className="mt-3 text-[13px] leading-relaxed text-cyan-800">{profileLoading ? "Chargement de vos informations..." : "Vos informations enregistrées ont été préremplies. Complétez uniquement les champs manquants."}</p>
           {error && <p role="alert" className="mt-6 rounded-2xl bg-red-50 px-4 py-3 text-[13px] font-semibold text-red-700">{error}</p>}
 
@@ -141,8 +141,8 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
             <label>
               <span className="text-[12px] font-bold uppercase tracking-wide text-navy">Mode de livraison</span>
               <select name="deliveryMethod" value={formData.deliveryMethod} onChange={handleChange} className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-[14px] outline-none focus:border-[#0b7c9e]">
-                <option value="standard">Standard, à confirmer</option>
-                <option value="pickup">Retrait, à confirmer</option>
+                <option value="standard">Livraison à domicile</option>
+                <option value="pickup">Retrait sur place</option>
               </select>
             </label>
           </div>
@@ -159,7 +159,7 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
           </label>
           <button disabled={submitting || profileLoading} className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy px-5 py-4 text-[14px] font-semibold text-white transition-all hover:bg-navy-dark disabled:cursor-wait disabled:bg-slate-400">
             {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
-            Continuer vers le paiement
+            Payer ma commande
           </button>
         </form>
 
@@ -180,7 +180,7 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
           <div className="mt-5 space-y-3 text-[14px] text-slate-text">
             <div className="flex justify-between"><span>Sous-total</span><strong className="text-navy">{hasPricedItems ? formatMoney({ amount: estimatedTotal, currency: "XAF" }) : "À confirmer"}</strong></div>
             <div className="flex justify-between"><span>Livraison</span><strong className="text-navy">À confirmer</strong></div>
-            <div className="border-t border-slate-100 pt-3 font-semibold text-navy">Montant final validé par le serveur</div>
+            <div className="border-t border-slate-100 pt-3 font-semibold text-navy">Total confirmé avant paiement</div>
           </div>
         </aside>
       </main>

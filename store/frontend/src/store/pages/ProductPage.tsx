@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { ArrowLeft, Check, Heart, Minus, Plus, ShieldCheck, ShoppingCart } from "lucide-react";
 import StoreHeader from "../components/StoreHeader";
 import ProductCard from "../components/ProductCard";
@@ -35,7 +35,7 @@ export default function ProductPage({ slug, onNavigate }: ProductPageProps) {
     getProduct(slug)
       .then(async (result) => {
         setProduct(result);
-        document.title = result ? `The Shield Corporation | ${result.name}` : "The Shield Corporation | Produit";
+        document.title = result ? `${result.name} | The Shield Store` : "Produit | The Shield Store";
 
         if (result) {
           const productResults = await getProducts({ category: result.category.slug });
@@ -77,7 +77,6 @@ export default function ProductPage({ slug, onNavigate }: ProductPageProps) {
 
   const handleAddToCart = () => {
     addItem(product, quantity);
-    onNavigate("/store/cart");
   };
 
   return (
@@ -102,7 +101,7 @@ export default function ProductPage({ slug, onNavigate }: ProductPageProps) {
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.08]"
               />
               <div className="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold text-navy shadow-sm backdrop-blur-md">
-                Survolez pour agrandir
+                Touchez pour agrandir
               </div>
             </div>
             {product.images.length > 1 && (
@@ -131,7 +130,7 @@ export default function ProductPage({ slug, onNavigate }: ProductPageProps) {
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <StockStatus availability={product.availability} stock={product.stock} />
-              {product.stock !== undefined && <span className="rounded-full bg-slate-50 px-4 py-2 text-[13px] font-semibold text-slate-text">{product.stock} en stock</span>}
+
               {product.isNew && <span className="rounded-full bg-cyan-50 px-4 py-2 text-[13px] font-semibold text-cyan-700">Nouveau</span>}
               <button type="button" onClick={() => void toggleFavorite()} disabled={favoriteBusy} aria-pressed={favorite} className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[13px] font-semibold transition-all focus-visible:outline-2 focus-visible:outline-red-500 disabled:opacity-60 ${favorite ? "border-red-200 bg-red-50 text-red-600" : "border-slate-200 bg-white text-slate-600 hover:border-red-200 hover:text-red-500"}`}><Heart className="h-4 w-4" fill={favorite ? "currentColor" : "none"} />{favorite ? "Dans vos favoris" : "Ajouter aux favoris"}</button>
             </div>
@@ -143,7 +142,7 @@ export default function ProductPage({ slug, onNavigate }: ProductPageProps) {
                 {product.oldPrice && <p className="pb-1 text-[14px] text-slate-400 line-through">{formatMoney(product.oldPrice)}</p>}
               </div>
               <p className="mt-2 text-[12px] leading-relaxed text-slate-text">
-                Les prix, stocks et disponibilités seront confirmés par le backend Django avant validation de commande.
+                Prix en FCFA. Le total final, livraison comprise, vous est confirmé avant le paiement.
               </p>
             </div>
 
@@ -161,7 +160,7 @@ export default function ProductPage({ slug, onNavigate }: ProductPageProps) {
                 <ShoppingCart className="h-4 w-4" />
                 Ajouter au panier
               </button>
-              <button disabled={!available} onClick={handleAddToCart} className="inline-flex flex-1 items-center justify-center rounded-full bg-[#0b7c9e] px-5 py-3.5 text-[13px] font-semibold text-white transition-all hover:bg-navy disabled:cursor-not-allowed disabled:bg-slate-300">
+              <button disabled={!available} onClick={() => { addItem(product, quantity); onNavigate("/store/checkout"); }} className="inline-flex flex-1 items-center justify-center rounded-full bg-[#0b7c9e] px-5 py-3.5 text-[13px] font-semibold text-white transition-all hover:bg-navy disabled:cursor-not-allowed disabled:bg-slate-300">
                 Acheter maintenant
               </button>
             </div>
@@ -181,8 +180,8 @@ export default function ProductPage({ slug, onNavigate }: ProductPageProps) {
             )}
 
             <div className="mt-8 grid gap-3 border-t border-slate-100 pt-6 text-[13px] text-slate-text">
-              <p className="flex gap-2"><Check className="mt-0.5 h-4 w-4 text-[#0b7c9e]" /> Livraison, garantie et paiement configurables depuis Django.</p>
-              <p className="flex gap-2"><ShieldCheck className="mt-0.5 h-4 w-4 text-[#0b7c9e]" /> Le backend reste la source de vérité pour les prix, stocks et totaux de commande.</p>
+              <p className="flex gap-2"><Check className="mt-0.5 h-4 w-4 text-[#0b7c9e]" /> Paiement sécurisé par Mobile Money ou carte.</p>
+              <p className="flex gap-2"><ShieldCheck className="mt-0.5 h-4 w-4 text-[#0b7c9e]" /> [Garantie : X mois] · [Livraison à Douala, Yaoundé et dans tout le pays]</p>
             </div>
           </div>
         </section>
